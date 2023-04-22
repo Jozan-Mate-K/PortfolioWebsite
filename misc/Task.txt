@@ -1,0 +1,21 @@
+Integration task
+Set up a hardened web service environment with a dynamic web application.
+
+Basic implementation (for a "pass"):
+A dynamic web application (eg. Wordpress) running in a virtual machine
+A certificate authority (eg. OpenSSL, XCA, Microsoft AD CS), issue and configure a self signed web server certificate for the web application so that it can be accessed via HTTPS
+A configured operating system firewall so that only HTTPS services are available
+Safe secrets and strong passwords for all services (incl. database connections, operating system and web application credentials)
+
+Bonus points for:
+Setting up automatic redirection from HTTP to HTTPS (you can enable the HTTP port on the firewall in this case)
+A real public web service with a real domain name and an ACME (Let's Encrypt) certificate - you can use AWS or Azure free tier plans to get a public virtual machine
+Changing default admin URL-s and other well known default properties of the web application - please describe your choices and reasons in detail
+Two factor authentication (eg. TOTP 2FA) in the web application administrative access
+A web application firewall (WAF) and/or IDS/IPS either in the same virtual machine or as an external component between the external world and the service, then running an external security scan againtst the service (eg. OpenVAS) and evaluating the results
+
+Additional rules:
+You can use any operating system and any software distribution, including pre packaged web server distributions (use your google-fu), but you must create and use your own CA, then issue and configure your own certificates, no automated "all-in-one" solutions are accepted
+The selected web application must provide user login functions, web based content management and a public web interface (eg. it should be a CMS, a web photo gallery, a forum or similar)
+Create a ~10 page document describing your set up process and final solution in detail, including description of the optional scripts, running environment, configuration files or dialogs and demonstration of operation (eg. screen shots) - keep your focus on the security aspects
+Upload your the document in PDF format until the deadline - please DO NOT upload the VM image

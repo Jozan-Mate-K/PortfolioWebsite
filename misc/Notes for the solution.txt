@@ -1,0 +1,9 @@
+Website with 2FA login, and the website can encrypt whatever you put into it, with RSA 
+An admin site that contains opportunities for development, but not much else (I really dont wanna fuck with this) 
+
+Server: Ubuntu server
+
+Connection: I couuuld do Async/await sith some shitass backend, 
+in like .Net, oor i could toss flask or jango at it and websocket. No restAPI this time, im wayy to lazy.
+
+2FA: Mail server, with automatic emails.

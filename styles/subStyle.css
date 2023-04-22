@@ -1,0 +1,114 @@
+h1{
+    color: white;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 40px;
+    letter-spacing: 3px;
+}
+h2{
+    color: white;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 25px;
+    letter-spacing: 3px;
+}
+p{
+    color: white;
+    font-size: 20px;
+}
+textarea{
+    resize: none;
+    width: 30%;
+    background-color: #300030;
+    border: solid 2px white;
+    color: white;
+    font-size: 15px;
+    overflow: visible;
+    align-self: stretch;
+}
+input[type = text], input[type = password]{
+    color: white;
+    background-color:#300030;
+    padding: 0.5em;
+    margin: 0.5em;
+    box-shadow: 0 0 5px white;
+    border: 0;
+    border-radius: 5px ;
+
+} 
+
+#subMain{
+    margin: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#passwordReset{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    align-self: flex-start;
+    margin-left: 10%;
+}
+
+.description{
+    font-style: italic;
+    font-size: 15px;
+}
+.keyContainer{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: stretch;
+    height: 100%;
+}
+.keyContainer textarea{
+    width: 98%;
+}
+.keyContainer :nth-child(1){
+    flex-grow: 3;
+}
+.keyContainer :not(:first-child){
+    flex-grow: 1;
+}
+
+#encryptBoxContainer{
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.encryptContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 50vh;
+    align-items: center;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.encryptButton{
+    background-color: #300030;
+    padding: 5px;
+    border-radius: 15px;
+    border: solid 1px white;
+    box-shadow: 0 0 5px gray;
+    transition: 0.2s ease-out background-color;
+}
+.encryptButton:hover{
+    background-color: #003030;
+}
+.encryptButton:active{
+    background-color: white;
+}
+
+.invform{
+    display: flex;
+    flex-direction: row;
+}
