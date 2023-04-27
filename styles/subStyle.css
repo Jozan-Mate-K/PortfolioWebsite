@@ -7,12 +7,19 @@ h1{
 h2{
     color: white;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 25px;
+    font-size: 30px;
     letter-spacing: 3px;
+}
+section{
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 p{
     color: white;
-    font-size: 20px;
+    font-size: 25px;
+    line-height: 120%;
 }
 textarea{
     resize: none;
@@ -50,7 +57,25 @@ input[type = text], input[type = password]{
     align-self: flex-start;
     margin-left: 10%;
 }
-
+#revealContainer .reveal:is(p){
+    margin-bottom: 10%;
+}
+#revealContainer .reveal{
+    opacity: 0;
+    transition: all 0.5s ease-out;
+}
+#revealContainer .reveal:nth-child(even){
+    transform: translateX(200px);
+}
+#revealContainer .reveal:nth-child(odd){
+    transform: translateX(-200px);
+}
+#revealContainer .active{
+    opacity: 1;
+}
+#revealContainer .reveal.active{
+    transform: translateX(0px);
+}
 .description{
     font-style: italic;
     font-size: 15px;
@@ -85,12 +110,29 @@ input[type = text], input[type = password]{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 50vh;
     align-items: center;
+    margin: 0;
+    overflow: hidden;
+    height: 0vh;
+    width: 0%;
+    transition: all 0.2s ease-out;
+}
+.appear{
+    height: 50vh;
+    width: auto;
     margin-left: 5%;
     margin-right: 5%;
     margin-top: 2%;
     margin-bottom: 2%;
+}
+.encryptType{
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.encryptType:hover{
+    font-size: 35px;
+    text-shadow: 0 0 2px white;
+    letter-spacing: 10px;
 }
 
 .encryptButton{

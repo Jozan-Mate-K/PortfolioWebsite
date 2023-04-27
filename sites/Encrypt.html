@@ -1,9 +1,9 @@
 <html>
     <head>
-        <link rel="stylesheet" href="../styles/style.css">
         <link rel="stylesheet" href="../styles/subStyle.css">
         <script src="../Scripts/md5.js"></script>
         <script src="../Scripts/Encrypt.js"></script>
+        <script src="../Scripts/HideEncrypt.js"></script>
     </head> 
     <body >
         <div id="subMain"> 
@@ -11,14 +11,14 @@
             <h1>Encrypt</h1>
             <p>On this site i want to demonstrate the different encryption methods used in web communictions</p>
             <div id="encryptBoxContainer">
-                <h2>MD5:</h2>
+                <h2 onclick="OpenBox('MD5')" class="encryptType">MD5:</h2>
                 <p class="description">
                     Message Digest Method 5 is a cryptographic hash algorithm 
                     used to generate a 128-bit digest from a string of any length. 
                     It represents the digests as 32 digit hexadecimal numbers. 
                     Ronald Rivest designed this algorithm in 1991 to provide the means for digital signature verification.
                 </p>
-                <div id="encryptContainer" class="encryptContainer md5Container">
+                <div id="MD5Container" class="encryptContainer md5Container">
                     <div class="keyContainer">
 
                         <textarea id="plain_text_md5" placeholder="Plain Text"></textarea>
@@ -32,14 +32,14 @@
                     </div>
                 </div>
 
-                <h2>AES:</h2>
+                <h2 onclick="OpenBox('AES')" class="encryptType">AES:</h2>
                 <p class="description">
                     The Advanced Encryption Standard (AES) is a symmetric block cipher chosen by the U.S. government 
                     to protect classified information. 
                     AES is implemented in software and hardware throughout the world to encrypt sensitive data. 
                     It is essential for government computer security, cybersecurity and electronic data protection.
                 </p>
-                <div id="encryptContainer" class="encryptContainer md5Container">
+                <div id="AESContainer" class="encryptContainer md5Container">
                     <div class="keyContainer">
 
                         <textarea id="aes_plain_text" placeholder="Plain Text"></textarea>
@@ -55,14 +55,14 @@
                     </div>
                 </div>
 
-                <h2>SHA256:</h2>
+                <h2 onclick="OpenBox('SHA')" class="encryptType">SHA256:</h2>
                 <p class="description">
                     Rivest-Shamir-Adleman is an Asymmetric encryption technique that uses two different keys 
                     as public and private keys to perform the encryption and decryption. 
                     With RSA, you can encrypt sensitive information with a public key and 
                     a matching private key is used to decrypt the encrypted message.
                 </p>
-                <div id="encryptContainer" class="encryptContainer md5Container">
+                <div id="SHAContainer" class="encryptContainer md5Container">
                     <div class="keyContainer">
                         
                         <textarea id="rsa_plain_text" placeholder="Plain Text" maxlength="32"></textarea>
@@ -85,6 +85,6 @@
                     </div>
                 </div>
             </div>
-        </div>    
+        </div> 
     </body>
 <html>
