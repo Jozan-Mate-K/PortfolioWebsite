@@ -57,18 +57,39 @@ input[type = text], input[type = password]{
     align-self: flex-start;
     margin-left: 10%;
 }
-#revealContainer .reveal:is(p){
-    margin-bottom: 10%;
+#revealContainer .reveal p{
+    flex-shrink:  5;
+    flex-grow: 0;
 }
 #revealContainer .reveal{
     opacity: 0;
     transition: all 0.5s ease-out;
+    margin-bottom: 10%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 #revealContainer .reveal:nth-child(even){
     transform: translateX(200px);
 }
+#revealContainer .reveal:nth-child(even) p{
+    border-right-width: 10px;
+    border-right-color: white;
+    border-right-style: solid;
+    margin-right: 30px;
+    text-align: right;
+    padding-right: 5px;
+}
 #revealContainer .reveal:nth-child(odd){
     transform: translateX(-200px);
+}
+#revealContainer .reveal:nth-child(odd) p{
+    border-left-width: 10px;
+    border-left-color: white;
+    border-left-style: solid;
+    margin-left: 30px;
+    text-align: left;
+    padding-left: 5px;
 }
 #revealContainer .active{
     opacity: 1;
@@ -97,7 +118,28 @@ input[type = text], input[type = password]{
 .keyContainer :not(:first-child){
     flex-grow: 1;
 }
-
+.widget{
+    background-image: url("../assets/circle.png");
+    background-size: cover;
+    height: var(--lockSize);
+    width: var(--lockSize);
+    flex-grow: 5;
+    flex-shrink: 0;
+    animation: widgetAnim 3s linear infinite ;
+}
+@keyframes widgetAnim {
+    0%{
+        transform: rotateZ(0deg);
+    }25%{
+        transform: rotateZ(90deg);
+    }50%{
+        transform: rotateZ(180deg);
+    }75%{
+        transform: rotateZ(270deg);
+    }100%{
+        transform: rotateZ(360deg);
+    }
+}
 #encryptBoxContainer{
     overflow: hidden;
     width: 100%;
@@ -109,9 +151,10 @@ input[type = text], input[type = password]{
 .encryptContainer{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     margin: 0;
+    padding: auto;
     overflow: hidden;
     height: 0vh;
     width: 0%;
