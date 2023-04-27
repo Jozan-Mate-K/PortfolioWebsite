@@ -6,3 +6,10 @@ function ShowNextPost(title,date,contents,id){
 function LoadComments(id){
     document.getElementById(id).classList.add("show");
 }
+function asd(){
+
+    ShowNextPost('I Eat ass on the daily', 'Every day faggot', 'Weewoooweeeewooooweeeoooowoooowoowwo', '0' );
+    ShowNextPost('asd', '2023.09.12', 'Mirror Mirror on the wall, give me torture, cock and ball', '1' );
+    ShowNextPost('I just cant anymore', 'never', 'Swallowed shampoo, probably gonna die', '2' );
+    ShowNextPost('Nooo', '2001.10.02', 'balls? I lick em ', '3' );
+}
