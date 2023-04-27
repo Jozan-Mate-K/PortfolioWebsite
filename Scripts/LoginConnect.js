@@ -17,8 +17,8 @@ async function login_api(username, password){
         },
         method: 'POST',
         body: JSON.stringify({
-            'username': username,
-            'password': md5(password)
+            "username": username,
+            "password": md5(password)
         })
     });
     let data = await res.json();
@@ -34,7 +34,8 @@ function Pass () {
     const passAnimLength=0.5;
     document.getElementById("lock").style.animation="pass " + passAnimLength + "s steps(10)";
     setTimeout(function(){
-        window.location.href="/sites/Main.html";
+        window.location.href="/index.html";
+        //DONT FORGET TO CHANGE THIS 
     },passAnimLength*999);
 }
 function Deny () {

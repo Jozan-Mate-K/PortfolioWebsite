@@ -1,21 +1,41 @@
 <!DOCTYPE html>
 <html>
-    <head>  
-        <title>Login</title>
-        <link rel="stylesheet" href="./styles/style.css">
-        <script src="./Scripts/LoginConnect.js"></script>
+    <head>
+        <title>
+            Pradctice
+        </title>
+        <script src="./Scripts/ScrollIndicator.js"></script>
+        <script src="./Scripts/LoadNewPage.js"></script>
+        <script src="./Scripts/MouseControl.js"></script>
+        <script src="./Scripts/Encrypt.js"></script>
         <script src="./Scripts/md5.js"></script>
-
+        <script src="./Scripts/UserUtils.js"></script>
+        <script src="./Scripts/HideEncrypt.js"></script>
+        <script src="./Scripts/ScrollReveal.js"></script>
+        <link rel="stylesheet" href="./styles/style.css">
     </head>
-    <body class="master loginMaster" id="master">
-        <div class="loginPanel" id="loginPanel">
-            <div class="lockContainer" id="lockContainer">
-                <img src="./assets/LockAnim.png" class="lock" id="lock">
+    <body class="master" id="master">
 
+        <div class="header" id="header">
+
+            <div class="selector" >
+                <div class="buttonContainer">
+
+                    <button class="headerButton selectButton" onclick="load('./sites/Home.html', 'Home')">Home</button> 
+                    <button class="headerButton selectButton" onclick="load('./sites/Encrypt.html','Encrypt')">Encrypt</button>
+                    <button class="headerButton selectButton" onclick="load('./sites/AboutUs.html', 'About Us')">About us</button>
+                    <button class="headerButton selectButton" onclick="load('./sites/Account.html', 'Account')">Account</button>
+                    <button class="headerButton selectButton" onclick="load('./sites/Invite.html', 'Invite')">Invite a friend!</button>
+                </div>
+                <button onclick="window.location.href = './sites/Login.html'" id="userName" class="headerButton adminButton"></button>
             </div>
-            <input type="text" id="username" placeholder="Login"><br>
-            <input type="password" id="password" placeholder="Password"><br>
-            <button onclick="VerifyLogin()">Login</button>
+            <div class="underline" id="underline"></div>
         </div>
+        <div id="contentContainer" onscroll="Scrolled(); Reveal()"></div>
+
     </body>
+    <script>
+        document.getElementById('userName').innerHTML = localStorage.getItem('name');
+        load('./sites/Home.html', "Home");
+    </script>
 </html>

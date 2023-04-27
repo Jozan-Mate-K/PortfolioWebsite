@@ -7,6 +7,8 @@ import string
 import base64
 import rsa
 
+import os
+print("Working dir:", os.getcwd())
 
 def pad(txt: str):
     return txt.encode('utf-8') + b'\0' * (AES.block_size - len(txt) % AES.block_size)
@@ -18,10 +20,10 @@ CORS(app)
 
 @app.route('/login', methods=['POST'])
 def login():
-    with open('./database/users.txt') as f:
+    with open("B:/Dokumentumok/Itsec Beadandó/backend/database/users.txt") as f:
         for line in f.readlines():
             split = line.strip().split(':')
-            if request.json['username'] == split[0] and request.json['password'] == split[1]:
+            if request.json["username"] == split[0] and request.json["password"] == split[1]:
                 f.close()
                 sid = ''
                 for i in range(0, 8):

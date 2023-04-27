@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>  
+        <title>Login</title>
+        <link rel="stylesheet" href="../styles/style.css">
+        <script src="../Scripts/LoginConnect.js"></script>
+        <script src="../Scripts/md5.js"></script>
+
+    </head>
+    <body class="master loginMaster" id="master">
+        <div class="loginPanel" id="loginPanel">
+            <div class="lockContainer" id="lockContainer">
+                <img src="../assets/LockAnim.png" class="lock" id="lock">
+
+            </div>
+            <input type="text" id="username" placeholder="Login"><br>
+            <input type="password" id="password" placeholder="Password"><br>
+            <button onclick="VerifyLogin()">Login</button>
+        </div>
+    </body>
+</html>
