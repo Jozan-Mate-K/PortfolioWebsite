@@ -135,6 +135,27 @@ def aes_endpoint():
             return {'data': 'error'}
     else:
         return {'data': 'bad type'}
+    
+@app.route('/forum', methods=['POST'])
+def forumEndpoint():
+    if request.json['type'] == 'enc':
+        try:
+            iv = Random.new().read(AES.block_size)
+            cypher = AES.new(pad(request.json['key']), AES.MODE_EAX, iv)
+            encryption = iv + cypher.encrypt(pad(request.json['text']))
+            return {'data': base64.b64encode(encryption).decode('utf-8')}
+        except:
+            return {'data': 'error'}
+    elif request.json['type'] == 'dec':
+        try:
+            txt = base64.b64decode(request.json['text'])
+            iv = txt[:AES.block_size]
+            cypher = AES.new(pad(request.json['key']), AES.MODE_EAX, iv)
+            return {'data': cypher.decrypt(txt[AES.block_size:]).rstrip(b'\0').decode('utf-8')}
+        except:
+            return {'data': 'error'}
+    else:
+        return {'data': 'bad type'}
 
 
 @app.route('/rsa', methods=['GET', 'POST'])

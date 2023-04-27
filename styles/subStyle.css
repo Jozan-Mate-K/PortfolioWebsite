@@ -101,6 +101,22 @@ input[type = text], input[type = password]{
     font-style: italic;
     font-size: 15px;
 }
+#revealContainer .reveal.forumButton{
+    transform: scale(100%);
+    cursor: pointer;
+}
+#revealContainer .reveal.forumButton:hover{
+    transform: scale(105%);
+}
+.commentContainer{
+    width: 100%;
+    height: 0;
+    background-color: green;
+}
+.commentContainer.show{
+    height: 500px;
+}
+
 .keyContainer{
     width: 30%;
     display: flex;
