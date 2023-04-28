@@ -7,8 +7,6 @@ import string
 import base64
 import rsa
 
-import os
-print("Working dir:", os.getcwd())
 
 def pad(txt: str):
     return txt.encode('utf-8') + b'\0' * (AES.block_size - len(txt) % AES.block_size)
@@ -135,28 +133,63 @@ def aes_endpoint():
             return {'data': 'error'}
     else:
         return {'data': 'bad type'}
-    
-@app.route('/forum', methods=['POST'])
-def forumEndpoint():
-    if request.json['type'] == 'enc':
-        try:
-            iv = Random.new().read(AES.block_size)
-            cypher = AES.new(pad(request.json['key']), AES.MODE_EAX, iv)
-            encryption = iv + cypher.encrypt(pad(request.json['text']))
-            return {'data': base64.b64encode(encryption).decode('utf-8')}
-        except:
-            return {'data': 'error'}
-    elif request.json['type'] == 'dec':
-        try:
-            txt = base64.b64decode(request.json['text'])
-            iv = txt[:AES.block_size]
-            cypher = AES.new(pad(request.json['key']), AES.MODE_EAX, iv)
-            return {'data': cypher.decrypt(txt[AES.block_size:]).rstrip(b'\0').decode('utf-8')}
-        except:
-            return {'data': 'error'}
-    else:
-        return {'data': 'bad type'}
 
+forumPostData = {'data':[
+            {
+                'user': "Dickhead",
+                'date': "2023.10.5",
+                'title': "I beat my meat to a pulp",
+                'post': 'dfjsljfjgdl hjgsdgtrnemu rhdsfijgof djhdgsofjsf eohfrhigh oudhorgpse',
+                'id': "0"
+            },
+            {
+                'user': "Blabla",
+                'date': "2010.02.28",
+                'title': "I wish i had a dog and some peanut butter",
+                'post': 'rhtroéudsh rfgoiehsukihfgr sdihgouhos jugoérjlithgk ngfldghf ohgdoduh dfjsljfjgdl ',
+                'id': "1"
+            },
+            {
+                'user': "Stanley",
+                'date': "2001.01.01",
+                'title': "Happy new year!",
+                'post': 'hjgsdgtrnemu rhdsfijgof djhdgsofjsf eohfrhigh oudhorgpse rhtroéudsh rfgoiehsukihfgr sdihgouhos ',
+                'id': "2"
+            },
+            {
+                'user': "Elmo",
+                'date': "2001.09.11",
+                'title': "How tf does elmo fly a plane?",
+                'post': 'oudhorgpse rhtroéudsh rfgoiehsukihfgr sdihgouhos jugoérjlithgk ngfldghf ohgdoduh dfjsljfjgdl hjgsdgtrnemu rhdsfijgof djhdgsofjsf eohfrhigh oudhorgpse rhtroéudsh rfgoiehsukihfgr sdihgouhos jugoérjlithgk ngfldghf ohgdoduh',
+                'id': "3"
+            }
+        ]}
+
+@app.route('/postContents', methods=['POST'])
+def forumEndpoint():
+    try:
+        res = None
+        for item in forumPostData['data']:
+            if int(item['id']) == int(request.json['id']):
+                res = item['post']
+                break
+        return {'data': res}
+    except:
+        return {'data': 'error'}
+
+@app.route('/getPosts', methods=['GET'])
+def postsEndpoint():
+    return forumPostData
+
+@app.route('/post', methods=['POST'])
+def postEndpoint():
+    try:
+        dict = request.json
+        dict['id'] = len(forumPostData['data'])
+        forumPostData['data'].append(dict)
+        return {'data': "success"}
+    except:
+        return {'data': 'error'}
 
 @app.route('/rsa', methods=['GET', 'POST'])
 def rsa_endpoint():

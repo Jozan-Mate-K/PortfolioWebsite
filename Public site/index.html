@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Pradctice
+        </title>
+        <script src="./Scripts/ScrollIndicator.js"></script>
+        <script src="./Scripts/LoadNewPage.js"></script>
+        <script src="./Scripts/MouseControl.js"></script>
+        <script src="./Scripts/Encrypt.js"></script>
+        <script src="./Scripts/md5.js"></script>
+        <script src="./Scripts/HideEncrypt.js"></script>
+        <script src="./Scripts/ScrollReveal.js"></script>
+        <link rel="stylesheet" href="./styles/style.css">
+    </head>
+    <body class="master" id="master">
+
+        <div class="header" id="header">
+
+            <div class="selector" >
+                <div class="buttonContainer">
+
+                    <button class="headerButton selectButton" onclick="load('./sites/Home.html', 'Home')">Home</button> 
+                    <button class="headerButton selectButton" onclick="load('./sites/Encrypt.html','Encrypt')">Encrypt</button>
+                    <button class="headerButton selectButton" onclick="load('./sites/AboutUs.html', 'About Us')">About us</button>
+                </div>
+                <button onclick="window.location.href = '../index.html'; /* This has to point to the private site*/" id="userName" class="headerButton adminButton">Login</button>
+            </div>
+            <div class="underline" id="underline"></div>
+        </div>
+        <div id="contentContainer" onscroll="Scrolled(); Reveal()"></div>
+
+    </body>
+    <script>
+        load('./sites/Home.html', "Home");
+    </script>
+</html>
