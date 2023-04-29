@@ -14,6 +14,9 @@
         <script src="../Scripts/ScrollReveal.js"></script>
         <script src="../Scripts/Forum.js"  ></script>
         <link rel="stylesheet" href="../styles/style.css">
+        <script>
+            CheckIfUser();
+        </script>
     </head>
     <body class="master" id="master">
 
@@ -28,6 +31,7 @@
                     <button class="headerButton selectButton" onclick="load('./AboutUs.html', 'About Us')">About us</button>
                     <button class="headerButton selectButton" id="Account" onclick="load('./Account.html', 'Account')">Account</button>
                     <button class="headerButton selectButton" onclick="load('./Invite.html', 'Invite')">Invite a friend!</button>
+                    <button class="headerButton selectButton" onclick="logout()">Logout</button>
                 </div>
                 <button onclick="window.location.href = './sites/Login.html'" id="userName" class="headerButton adminButton">Admin</button>
             </div>

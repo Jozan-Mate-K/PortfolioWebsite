@@ -18,7 +18,7 @@ CORS(app)
 
 @app.route('/login', methods=['POST'])
 def login():
-    with open("B:/Dokumentumok/Itsec Beadandó/backend/database/users.txt") as f:
+    with open("./database/users.txt") as f:
         for line in f.readlines():
             split = line.strip().split(':')
             if request.json["username"] == split[0] and request.json["password"] == split[1]:
@@ -136,16 +136,16 @@ def aes_endpoint():
 
 forumPostData = {'data':[
             {
-                'user': "Dickhead",
+                'user': "Jason",
                 'date': "2023.10.5",
-                'title': "I beat my meat to a pulp",
+                'title': "I love my wife",
                 'post': 'dfjsljfjgdl hjgsdgtrnemu rhdsfijgof djhdgsofjsf eohfrhigh oudhorgpse',
                 'id': "0"
             },
             {
                 'user': "Blabla",
                 'date': "2010.02.28",
-                'title': "I wish i had a dog and some peanut butter",
+                'title': "I wish i had a dog",
                 'post': 'rhtroéudsh rfgoiehsukihfgr sdihgouhos jugoérjlithgk ngfldghf ohgdoduh dfjsljfjgdl ',
                 'id': "1"
             },

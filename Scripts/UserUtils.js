@@ -42,5 +42,16 @@ async function call_api(endpoint, _body, _method){
 }
 
 function logout(){
-    window.location.href = "/"
+    localStorage.clear();
+    window.location.href = "/";
+}
+
+function CheckIfUser(){
+    var username = localStorage.getItem('name');
+    var sid = localStorage.getItem('sid');
+    if(username == null || sid == null){
+        window.location.href = "/"
+        return;
+    }
+    //Here we need to check the sid with the server
 }

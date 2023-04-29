@@ -93,17 +93,11 @@ function ShowContents(id){
     let head = document.getElementById("head"+id);
     if(!commentWindow.classList.contains("show")){
         head.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-
-        setTimeout(function(){
-
-            head.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-        }, 600)
-
         setTimeout(async function(){
             commentWindow.classList.add("show");
             let content = await LoadContents(id);
             commentWindow.innerHTML = "<p>" + content + "</p>";
-        }, 725)
+        }, 100)
     }else{
         commentWindow.innerHTML = "";
         commentWindow.classList.remove("show");

@@ -20,10 +20,6 @@ function Reveal (){
             reveals[i].classList.remove("active");
         } 
         if(revealBottom < revealPoint){
-            if(reveals[i].classList.contains("show")){
-                reveals[i].innerHTML = "";
-                reveals[i].classList.remove("show");    
-            }
             reveals[i].classList.remove("active");
         }
     }

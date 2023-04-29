@@ -1,4 +1,4 @@
-async function VerifyLogin () {
+function VerifyLogin () {
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
 
@@ -24,6 +24,7 @@ async function login_api(username, password){
     let data = await res.json();
     if(data['data'] == 'success'){
         localStorage.setItem('name', username);
+        localStorage.setItem('sid', data['sid']);
         Pass();
     }
     else{
