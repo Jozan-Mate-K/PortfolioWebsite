@@ -205,8 +205,6 @@ def postsOfUser():
     for i in forumPostData['data']:
         if i['user'] == request.json['user']:
             userPosts['data'].append(i) 
-
-    print(userPosts)
     return userPosts
 
 @app.route('/post', methods=['POST'])
