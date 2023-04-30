@@ -35,7 +35,6 @@ def checkToken():
         for line in f.readlines():
             split = line.strip().split(':')
             if request.json["username"] == split[0] and request.json["token"] == split[4]:
-                print(split[4])
                 f.close()
                 return {'data': 'success'}
         

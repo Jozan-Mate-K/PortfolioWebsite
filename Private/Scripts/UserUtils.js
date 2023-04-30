@@ -47,7 +47,7 @@ async function call_api(endpoint, _body, _method){
 
 function logout(){
     localStorage.clear();
-    window.location.href = "/";
+    window.location.href = "/Private";
 }
 
 function CheckIfUser(){
