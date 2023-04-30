@@ -199,6 +199,16 @@ def forumEndpoint():
 def postsEndpoint():
     return forumPostData
 
+@app.route('/getPostsOfUser', methods=['POST'])
+def postsOfUser():
+    userPosts = {'data':[]}
+    for i in forumPostData['data']:
+        if i['user'] == request.json['user']:
+            userPosts['data'].append(i) 
+
+    print(userPosts)
+    return userPosts
+
 @app.route('/post', methods=['POST'])
 def postEndpoint():
     try:

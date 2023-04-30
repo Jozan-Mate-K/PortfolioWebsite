@@ -52,10 +52,8 @@ input[type = text], input[type = password]{
 #passwordReset{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: stretch;
-    align-self: flex-start;
-    margin-left: 10%;
 }
 #revealContainer{
     width: 100%;

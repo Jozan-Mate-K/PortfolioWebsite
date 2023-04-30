@@ -5,16 +5,23 @@
     <body >
         <div id="subMain"> 
 
-            <h1>Account information and options</h1>
+            <h1>Account</h1>
             
-            <div id="passwordReset">
-                <h2>New Password:</h2>
-                <input type="password" id="oldPass" placeholder="Old Password">
-                <input type="password" id="newPass" placeholder="New Password">
-                <input type="password" id="confNewPass" placeholder="Confirm New Password">
-                <button onclick="changePassword()" class="encryptButton" style="color: white;">Set new password</button>
+            <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-around;">
+
+                <div id="passwordReset" style="flex-grow: 0;">
+                    <h2>New Password:</h2>
+                    <input type="password" id="oldPass" placeholder="Old Password">
+                    <input type="password" id="newPass" placeholder="New Password">
+                    <input type="password" id="confNewPass" placeholder="Confirm New Password">
+                    <button onclick="changePassword()" class="encryptButton" style="color: white;">Set new password</button>
+                </div>
+                <div style="flex-grow: 1; padding-left: 10%;">
+                    <h2 style="text-justify: center;">Your Posts:</h2>
+                    <div id="revealContainer"></div>
+                </div>
+                
             </div>
-            
         </div>    
     </body>
 <html>

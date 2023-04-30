@@ -78,5 +78,4 @@ function CheckIfUser(){
             return;
         }
     }, 100);
-    //Here we need to check the sid with the server
 }
