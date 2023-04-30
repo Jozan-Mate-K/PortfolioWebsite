@@ -9,13 +9,11 @@ function GetPosts(){
             let res = await fetch("http://127.0.0.1:5000/getPosts");
             let data = await res.json();
             content = data['data'];
-        }catch(e){
-            console.error(e);
-        }finally{
-
             content.forEach(element => {
                 ShowNextPost(element.user, element.date, element.title, element.id);
             });
+        }catch(e){
+            console.error(e);
         }
     }, 100);
     

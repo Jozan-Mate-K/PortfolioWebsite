@@ -28,17 +28,21 @@ function invite(){
 }
 
 async function call_api(endpoint, _body, _method){
-    let res = await fetch("http://127.0.0.1:5000/" + endpoint, {
-        headers: {
-            'Accept': 'aplication/json',
-            'Content-Type': 'application/json'
-        },
-        method: _method,
-        body: JSON.stringify(_body)
-    });
+    try{
 
-    let data = await res.json();
-    console.log(data);
+        let res = await fetch("http://127.0.0.1:5000/" + endpoint, {
+            headers: {
+                'Accept': 'aplication/json',
+                'Content-Type': 'application/json'
+            },
+            method: _method,
+            body: JSON.stringify(_body)
+        });
+        
+        let data = await res.json();
+    }catch(e){
+        console.error(e);
+    }
 }
 
 function logout(){
@@ -48,10 +52,31 @@ function logout(){
 
 function CheckIfUser(){
     var username = localStorage.getItem('name');
-    var sid = localStorage.getItem('sid');
-    if(username == null || sid == null){
-        window.location.href = "/"
+    var token = localStorage.getItem('token');
+    if(username == null || token == null){
+        logout();
         return;
     }
+    let body = {
+        'username': username,
+        'token': token
+    }
+    setTimeout(async function(){
+        let res = await fetch("http://127.0.0.1:5000/checkToken", {
+            headers: {
+                'Accept': 'aplication/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(body)
+        });
+        let data = await res.json();
+        if(data['data'] == 'success'){
+            return;
+        }else{
+            logout();
+            return;
+        }
+    }, 100);
     //Here we need to check the sid with the server
 }

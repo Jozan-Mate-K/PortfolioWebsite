@@ -15,7 +15,7 @@ def pad(txt: str):
 app = Flask(__name__)
 CORS(app)
 
-
+##THESE SHOULD BE HANDLED BY A DB
 @app.route('/login', methods=['POST'])
 def login():
     with open("./database/users.txt") as f:
@@ -23,13 +23,32 @@ def login():
             split = line.strip().split(':')
             if request.json["username"] == split[0] and request.json["password"] == split[1]:
                 f.close()
-                sid = ''
-                for i in range(0, 8):
-                    sid += random.choice(string.ascii_uppercase)
-
-                return {'data': 'success', 'sid': sid}
+                return {'data': 'success', 'token': split[4] }
+        
         f.close()
+
     return {"data": "fail"}
+
+@app.route('/checkToken', methods=['POST'])
+def checkToken():
+    with open("./database/users.txt") as f:
+        for line in f.readlines():
+            split = line.strip().split(':')
+            if request.json["username"] == split[0] and request.json["token"] == split[4]:
+                print(split[4])
+                f.close()
+                return {'data': 'success'}
+        
+        f.close()
+
+    return {"data": "fail"}
+
+def newSID(line,newLine):
+    #I need to re-create every sid at midnight
+    split = line.strip().split(':')
+    newLine = split[0]
+    for i in range(1,len(split)):
+        newLine += ":" + split[i]
 
 
 @app.route('/invite', methods=['POST'])

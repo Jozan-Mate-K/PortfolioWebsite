@@ -1,7 +1,6 @@
 function VerifyLogin () {
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
-
     try{
         login_api(username, password);
     }
@@ -10,21 +9,25 @@ function VerifyLogin () {
     }
 }
 async function login_api(username, password){
-    let res = await fetch("http://127.0.0.1:5000/login", {
-        headers: {
-            'Accept': 'aplication/json',
-            'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            "username": username,
-            "password": md5(password)
-        })
-    });
-    let data = await res.json();
+    try{
+        let res = await fetch("http://127.0.0.1:5000/login", {
+            headers: {
+                'Accept': 'aplication/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify({
+                "username": username,
+                "password": md5(password)
+            })
+        });
+        var data = await res.json();
+    }catch(e){
+        alert(e);
+    }
     if(data['data'] == 'success'){
         localStorage.setItem('name', username);
-        localStorage.setItem('sid', data['sid']);
+        localStorage.setItem('token', data['token']);
         Pass();
     }
     else{
