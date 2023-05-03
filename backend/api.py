@@ -18,7 +18,7 @@ CORS(app)
 
 @app.route('/login', methods=['POST'])
 def login():
-    with open("B:/Dokumentumok/Itsec Beadandó/backend/database/users.txt") as f:
+    with open("./database/users.txt") as f:
         for line in f.readlines():
             split = line.strip().split(':')
             if request.json["username"] == split[0] and request.json["password"] == split[1]:
@@ -134,36 +134,39 @@ def aes_endpoint():
     else:
         return {'data': 'bad type'}
 
-forumPostData = {'data':[
-            {
-                'user': "Dickhead",
+#database needed + sorting by date
+
+forumPostData = {'data': [
+    {
+        'user': "Dickhead",
                 'date': "2023.10.5",
                 'title': "I beat my meat to a pulp",
                 'post': 'dfjsljfjgdl hjgsdgtrnemu rhdsfijgof djhdgsofjsf eohfrhigh oudhorgpse',
                 'id': "0"
-            },
-            {
-                'user': "Blabla",
+    },
+    {
+        'user': "Blabla",
                 'date': "2010.02.28",
                 'title': "I wish i had a dog and some peanut butter",
                 'post': 'rhtroéudsh rfgoiehsukihfgr sdihgouhos jugoérjlithgk ngfldghf ohgdoduh dfjsljfjgdl ',
                 'id': "1"
-            },
-            {
-                'user': "Stanley",
+    },
+    {
+        'user': "Stanley",
                 'date': "2001.01.01",
                 'title': "Happy new year!",
                 'post': 'hjgsdgtrnemu rhdsfijgof djhdgsofjsf eohfrhigh oudhorgpse rhtroéudsh rfgoiehsukihfgr sdihgouhos ',
                 'id': "2"
-            },
-            {
-                'user': "Elmo",
+    },
+    {
+        'user': "Elmo",
                 'date': "2001.09.11",
                 'title': "How tf does elmo fly a plane?",
                 'post': 'oudhorgpse rhtroéudsh rfgoiehsukihfgr sdihgouhos jugoérjlithgk ngfldghf ohgdoduh dfjsljfjgdl hjgsdgtrnemu rhdsfijgof djhdgsofjsf eohfrhigh oudhorgpse rhtroéudsh rfgoiehsukihfgr sdihgouhos jugoérjlithgk ngfldghf ohgdoduh',
                 'id': "3"
-            }
-        ]}
+    }
+]}
+
 
 @app.route('/postContents', methods=['POST'])
 def forumEndpoint():
@@ -177,9 +180,11 @@ def forumEndpoint():
     except:
         return {'data': 'error'}
 
+
 @app.route('/getPosts', methods=['GET'])
 def postsEndpoint():
     return forumPostData
+
 
 @app.route('/post', methods=['POST'])
 def postEndpoint():
@@ -190,6 +195,7 @@ def postEndpoint():
         return {'data': "success"}
     except:
         return {'data': 'error'}
+
 
 @app.route('/rsa', methods=['GET', 'POST'])
 def rsa_endpoint():
