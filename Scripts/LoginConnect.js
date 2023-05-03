@@ -34,7 +34,7 @@ function Pass () {
     const passAnimLength=0.5;
     document.getElementById("lock").style.animation="pass " + passAnimLength + "s steps(10)";
     setTimeout(function(){
-        window.location.href="./sites/Main.html";
+        window.location.href="/index.html";
         //DONT FORGET TO CHANGE THIS 
     },passAnimLength*999);
 }

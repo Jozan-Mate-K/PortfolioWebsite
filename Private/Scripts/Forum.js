@@ -9,18 +9,46 @@ function GetPosts(){
             let res = await fetch("http://127.0.0.1:5000/getPosts");
             let data = await res.json();
             content = data['data'];
-        }catch(e){
-            console.error(e);
-        }finally{
-
+            console.log(content);
             content.forEach(element => {
                 ShowNextPost(element.user, element.date, element.title, element.id);
             });
+        }catch(e){
+            console.error(e);
         }
     }, 100);
     
 }
 
+function GetPostsOfUser(){
+    var user = localStorage.getItem('name');
+    const contentContainer = document.getElementById("contentContainer");
+    contentContainer.scrollTo(0, 0);
+    document.getElementById("revealContainer").innerHTML = "";
+    var content;
+    setTimeout(async function(){
+        try{
+            let res = await fetch("http://127.0.0.1:5000/getPostsOfUser",{
+                headers: {
+                    'Accept': 'aplication/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify({
+                    "user": user,
+                })
+            });
+            let data = await res.json();
+            content = data['data'];
+            content.forEach(element => {
+                ShowNextPost(element.user, element.date, element.title, element.id);
+            });
+            Reveal();
+        }catch(e){
+            console.error(e);
+        }
+    }, 100);
+}
 
 function ShowNextPost(user,date,title,id){
     document.getElementById("revealContainer").innerHTML += '<div id="head'+id+'" onclick="ShowContents('+ id +')" class="reveal forumButton"><div><h1>' + user + '</h1><p style="border: 0; font-style: italic;">' + date + '</p></div><p>'+ title + '</p></div><div id="'+ id +'" class="reveal commentContainer"></div>';
@@ -93,17 +121,11 @@ function ShowContents(id){
     let head = document.getElementById("head"+id);
     if(!commentWindow.classList.contains("show")){
         head.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-
-        setTimeout(function(){
-
-            head.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-        }, 600)
-
         setTimeout(async function(){
             commentWindow.classList.add("show");
             let content = await LoadContents(id);
             commentWindow.innerHTML = "<p>" + content + "</p>";
-        }, 725)
+        }, 100)
     }else{
         commentWindow.innerHTML = "";
         commentWindow.classList.remove("show");
