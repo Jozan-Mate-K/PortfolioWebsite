@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, render_template, request, url_for, redirect
 from flask_cors import CORS
 from Crypto.Cipher import AES
 from Crypto import Random
@@ -6,6 +6,21 @@ import random
 import string
 import base64
 import rsa
+
+import os
+from flask_sqlalchemy import SQLAlchemy
+
+from sqlalchemy.sql import func
+
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] =\
+    'sqlite:///' + os.path.join(basedir, 'database.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
 
 
 def pad(txt: str):
