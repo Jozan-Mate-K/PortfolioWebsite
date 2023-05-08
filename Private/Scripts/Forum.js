@@ -1,4 +1,3 @@
-//The front end recieves the json file and creates a post based on it
 function GetPosts(){
     const contentContainer = document.getElementById("contentContainer");
     contentContainer.scrollTo(0, 0);
@@ -6,13 +5,25 @@ function GetPosts(){
     var content;
     setTimeout(async function(){
         try{
-            let res = await fetch(backendIp + "/getPosts");
-            let data = await res.json();
-            content = data['data'];
-            console.log(content);
-            content.forEach(element => {
-                ShowNextPost(element.user, element.date, element.title, element.id);
+            let res = await fetch(backendIp + "/getPosts",{
+                headers: {
+                    'Accept': 'aplication/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify({
+                    "token": localStorage.getItem('token'),
+                })
             });
+            let content = await res.json();
+            
+            if(content != ""){
+                content.forEach(element => {
+                    ShowNextPost(element.user, element.date, element.title, element.id);
+                });
+            }else{
+                NoPostsToShow();
+            }
         }catch(e){
             console.error(e);
         }
@@ -38,9 +49,7 @@ function GetPostsOfUser(){
                     "user": user,
                 })
             });
-            let data = await res.json();
-            content = data['data'];
-            console.log(content);
+            let content = await res.json();
             if(content != ""){
                 content.forEach(element => {
                     ShowNextPost(element.user, element.date, element.title, element.id);
@@ -48,7 +57,6 @@ function GetPostsOfUser(){
             }else{
                 NoPostsToShow();
             }
-            Reveal();
         }catch(e){
             console.error(e);
         }
@@ -88,7 +96,7 @@ function Post(){
     if (month < 10) {
         month = '0' + month;
     }
-    sendDate = year + "." + month + "." + date + ".";
+    sendDate = year + "-" + month + "-" + date;
     
     setTimeout(async function(){
         
@@ -100,10 +108,10 @@ function Post(){
                 },
                 method: 'POST',
                 body: JSON.stringify({
-                    "user": localStorage.getItem('name'),
-                    "date": sendDate,
+                    "username": localStorage.getItem('name'),
+                    "postDate": sendDate,
                     "title": title,
-                    "post": post,
+                    "contents": post,
                 })
             });
 
