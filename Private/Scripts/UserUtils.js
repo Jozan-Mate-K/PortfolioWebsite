@@ -18,10 +18,10 @@ function changePassword(){
     }
 }
 
-function invite(){
-    let endpoint = "invite";
+function Invite(){
+    let endpoint = "/invite";
     let body = {
-        'name' : document.getElementById("inviteBtn").value
+        'name' : document.getElementById("username").value
     };
     method = 'POST';
     call_api(endpoint, body, method);
@@ -81,5 +81,5 @@ function CheckIfUser(){
 }
 
 function LoadAdmin(){
-    window.location.href=backendIp + "/adminLoginSite";
+    window.location.href=backendIp + "/adminLogin";
 }

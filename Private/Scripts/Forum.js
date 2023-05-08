@@ -52,10 +52,11 @@ function GetPostsOfUser(){
             let content = await res.json();
             if(content != ""){
                 content.forEach(element => {
-                    ShowNextPost(element.user, element.date, element.title, element.id);
+                    ShowNextPost(element.user, element.date , element.title, element.id);
+                    console.log(element.date)
                 });
             }else{
-                NoPostsToShow();
+                NoPostsToShow(element.date);
             }
         }catch(e){
             console.error(e);
@@ -141,7 +142,7 @@ function ShowContents(id){
         setTimeout(async function(){
             commentWindow.classList.add("show");
             let content = await LoadContents(id);
-            commentWindow.innerHTML = "<p>" + content + "</p>";
+            commentWindow.innerHTML = "<p style='word-wrap: break-word'>" + content + "</p>";
         }, 100)
     }else{
         commentWindow.innerHTML = "";

@@ -11,9 +11,6 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 
 from sqlalchemy import create_engine
-from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
-from sqlalchemy import inspect
-
 from sqlalchemy.sql import text, insert, table
 
 
@@ -37,74 +34,74 @@ CORS(app)
 def login():
     with engine.connect() as conn:
         q= text("SELECT hashedPass,token FROM users WHERE username = '" + request.json["username"] +"'")
-        rs = conn.execute(q)
-        userRow = rs.fetchone()
-        if request.json["password"] == userRow.hashedPass:
-            return {'data': 'success', 'token': userRow.token}
+        rs = conn.execute(q).fetchone()
+        if rs != None and request.json["password"] == rs.hashedPass:
+            return {'data': 'success', 'token': rs.token}
         
     return {"data": "fail"}
 
 
-@app.route('/adminLogin', methods=['POST'])
+@app.route('/adminLogin', methods=['GET','POST']) #yess
 def adminLogin():
-    with open("./database/users.txt") as f:
-        for line in f.readlines():
-            split = line.strip().split(':')
-            if request.json["username"] == split[0] and request.json["password"] == split[1]:
-                f.close()
-                return {'data': 'success', 'token': split[4]}
-
-        f.close()
-
-    return {"data": "fail"}
+    if request.method == 'GET':
+        return render_template('AdminLogin.html')
+    else:
+        with engine.connect() as conn:
+            q= text("SELECT hashedPass,token, isAdmin FROM users WHERE username = '" + request.json["username"] +"'")
+            rs = conn.execute(q).fetchone()
+            if rs != None and rs.isAdmin and request.json["password"] == rs.hashedPass:
+                return {'data': 'success', 'token': rs.token}
+            
+        return {"data": "fail"}
 
 
 @app.route('/checkToken', methods=['POST']) #yess
 def checkToken():
     with engine.connect() as conn:
         q= text("SELECT * FROM users WHERE username = '" + request.json["username"] +"'")
-        rs = conn.execute(q)
-        userRow = rs.fetchone()
-        if  request.json["token"] == userRow.token:
+        rs = conn.execute(q).fetchone()
+        if  request.json["token"] == rs.token:
             return {'data': 'success'}
         
     return {"data": "fail"}
 
 
-def newSID(line, newLine):
-    # I need to re-create every sid at midnight
-    split = line.strip().split(':')
-    newLine = split[0]
-    for i in range(1, len(split)):
-        newLine += ":" + split[i]
+def newSID(line, newLine): #I need to call this every midnight
+    with engine.connect() as conn:
+        q= text("SELECT * FROM users ")
+        rs = conn.execute(q)
+        for row in rs:
+            newToken = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(8))
+            q= text("UPDATE users SET token = '" + newToken +"' WHERE username = '" + row.username +"'")
+            conn.execute(q)
+            conn.commit()
 
 @app.route('/postContents', methods=['POST']) #yessss
 def forumEndpoint():
     with engine.connect() as conn:
         q= text("SELECT contents FROM posts WHERE postId = '"+ str(request.json['id'])+"'")
-        rs = conn.execute(q)
-        row = rs.fetchone()
-        return {'data': row.contents}
+        rs = conn.execute(q).fetchone()
+        return {'data': rs.contents}
 
 
 @app.route('/getPosts', methods=['POST']) #yess
 def postsEndpoint():
     with engine.connect() as conn:
         q= text("SELECT * FROM users WHERE token = '" + request.json["token"] +"'")
-        rs = conn.execute(q)
-        userRow = rs.fetchone()
-        if  request.json["token"] != userRow.token:
+        rs = conn.execute(q).fetchone()
+        if  request.json["token"] != rs.token:
             return {'data': 'fail'}
         
     with engine.connect() as conn:
-        q= text("SELECT * FROM posts")
+        q= text("SELECT * FROM posts ORDER BY postDate DESC")
         rs = conn.execute(q)
         forumPostData = []
         for row in rs:
+            
             forumPostData.append({
                 'id': row.postId,
                 'user': row.username,
-                'date': row.postDate,
+                'date': row.postDate.strftime('%Y/%b/%d'),
                 'title': row.title,
                 'post': row.contents
             })
@@ -115,14 +112,14 @@ def postsEndpoint():
 @app.route('/getPostsOfUser', methods=['POST']) #yess
 def postsOfUser():
     with engine.connect() as conn:
-        q= text("SELECT * FROM posts WHERE username = '" + request.json["user"] +"'")
+        q= text("SELECT * FROM posts WHERE username = '" + request.json["user"] +"' ORDER BY postDate DESC")
         rs = conn.execute(q)
         forumPostData = []
         for row in rs:
             forumPostData.append({
                 'id': row.postId,
                 'user': row.username,
-                'date': row.postDate,
+                'date': row.postDate.strftime('%Y/%b/%d'),
                 'title': row.title,
                 'post': row.contents
             })
@@ -134,19 +131,18 @@ def postsOfUser():
 def postEndpoint():
     with engine.connect() as conn:
         q= text("INSERT INTO posts(username, postDate, title, contents) VALUES('"+ request.json['username'] + "', '"+ request.json['postDate'] + "', '" + request.json['title'] + "', '" + request.json['contents'] + "'); ")
-        print(q)
         conn.execute(q)
         conn.commit()
     return {'data': "success"}
 
-@app.route('/invite', methods=['POST'])
+@app.route('/invite', methods=['POST']) #yess
 def invite():
-    with open('./database/users.txt', 'a') as f:
-        # password = 'pass'
-        f.write(
-            f"\n{request.json['name']}:1a1dc91c907325c69271ddf0c944bc72:0:0:x")
-        f.close()
-    return {'result': 'success'}
+    with engine.connect() as conn:
+        newToken = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(8))
+        q= text("INSERT INTO users(username, hashedPass, isAdmin, token) VALUES('"+ request.json['name'] + "', '1a1dc91c907325c69271ddf0c944bc72', false, '"+ newToken +"'); ")
+        conn.execute(q)
+        conn.commit()
+    return {'data': "success"}
 
 
 @app.route('/changepassword', methods=['POST'])
@@ -273,11 +269,5 @@ def rsa_endpoint():
             return {'data': cypher}
         else:
             return {'data': 'bad type'}
-
-
-@app.route('/adminLoginSite', methods=['GET', 'POST'])
-def adminLoginSite():
-    return render_template('AdminLogin.html')
-
 
 app.run()
