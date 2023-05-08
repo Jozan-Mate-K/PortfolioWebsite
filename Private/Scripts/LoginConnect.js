@@ -1,3 +1,5 @@
+const backendIp = "http://127.0.0.1:5000"
+
 function VerifyLogin () {
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
@@ -10,7 +12,7 @@ function VerifyLogin () {
 }
 async function login_api(username, password){
     try{
-        let res = await fetch("http://127.0.0.1:5000/login", {
+        let res = await fetch(backendIp + "/login", {
             headers: {
                 'Accept': 'aplication/json',
                 'Content-Type': 'application/json'

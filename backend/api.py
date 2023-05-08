@@ -13,16 +13,6 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
 
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] =\
-    'sqlite:///' + os.path.join(basedir, 'database.db')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db = SQLAlchemy(app)
-
-
 def pad(txt: str):
     return txt.encode('utf-8') + b'\0' * (AES.block_size - len(txt) % AES.block_size)
 
@@ -35,6 +25,20 @@ CORS(app)
 
 @app.route('/login', methods=['POST'])
 def login():
+    with open("./database/users.txt") as f:
+        for line in f.readlines():
+            split = line.strip().split(':')
+            if request.json["username"] == split[0] and request.json["password"] == split[1]:
+                f.close()
+                return {'data': 'success', 'token': split[4]}
+
+        f.close()
+
+    return {"data": "fail"}
+
+
+@app.route('/adminLogin', methods=['POST'])
+def adminLogin():
     with open("./database/users.txt") as f:
         for line in f.readlines():
             split = line.strip().split(':')
@@ -271,6 +275,11 @@ def rsa_endpoint():
             return {'data': cypher}
         else:
             return {'data': 'bad type'}
+
+
+@app.route('/adminLoginSite', methods=['GET', 'POST'])
+def adminLoginSite():
+    return render_template('AdminLogin.html')
 
 
 app.run()

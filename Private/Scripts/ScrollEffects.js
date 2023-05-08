@@ -1,4 +1,3 @@
-
 function Reveal (){
     var reveals = document.querySelectorAll('.reveal');
     for (let i = 0; i < reveals.length; i++) {
@@ -23,4 +22,16 @@ function Reveal (){
             reveals[i].classList.remove("active");
         }
     }
+}
+
+function Scrolled (){
+    const element = document.getElementById("contentContainer");
+    var delta = (element.scrollTop / (element.scrollHeight - element.clientHeight))* window.innerWidth;
+    document.documentElement.style.setProperty('--scroll', -delta  + 'px');
+}
+onmousemove = function(e){
+    document.documentElement.style.setProperty('--x', -e.clientX  + 'px');
+    var a = e.clientX / this.window.innerWidth;
+    var xPercent = (2 * a)-1;
+    document.documentElement.style.setProperty('--xPercent', xPercent);
 }

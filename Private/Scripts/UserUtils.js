@@ -30,7 +30,7 @@ function invite(){
 async function call_api(endpoint, _body, _method){
     try{
 
-        let res = await fetch("http://127.0.0.1:5000/" + endpoint, {
+        let res = await fetch(backendIp + endpoint, {
             headers: {
                 'Accept': 'aplication/json',
                 'Content-Type': 'application/json'
@@ -62,7 +62,7 @@ function CheckIfUser(){
         'token': token
     }
     setTimeout(async function(){
-        let res = await fetch("http://127.0.0.1:5000/checkToken", {
+        let res = await fetch(backendIp + "/checkToken", {
             headers: {
                 'Accept': 'aplication/json',
                 'Content-Type': 'application/json'
@@ -78,4 +78,8 @@ function CheckIfUser(){
             return;
         }
     }, 100);
+}
+
+function LoadAdmin(){
+    window.location.href=backendIp + "/adminLoginSite";
 }

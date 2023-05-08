@@ -4,14 +4,11 @@
         <title>
             Pradctice
         </title>
-        <script src="../Scripts/ScrollIndicator.js"></script>
+        <script src="../Scripts/ScrollEffects.js"></script>
         <script src="../Scripts/LoadNewPage.js"></script>
-        <script src="../Scripts/MouseControl.js"></script>
         <script src="../Scripts/Encrypt.js"></script>
         <script src="../Scripts/md5.js"></script>
         <script src="../Scripts/UserUtils.js"></script>
-        <script src="../Scripts/HideEncrypt.js"></script>
-        <script src="../Scripts/ScrollReveal.js"></script>
         <script src="../Scripts/Forum.js"  ></script>
         <link rel="stylesheet" href="../styles/style.css">
         <script>
@@ -33,7 +30,7 @@
                     <button class="headerButton selectButton" onclick="load('./Invite.html', 'Invite')">Invite a friend!</button>
                     <button class="headerButton selectButton" onclick="logout()">Logout</button>
                 </div>
-                <button onclick="window.location.href = './sites/Login.html'" id="userName" class="headerButton adminButton">Admin</button>
+                <button onclick="LoadAdmin();" id="adminButton" class="headerButton adminButton">Admin</button>
             </div>
             <div class="underline" id="underline"></div>
         </div>

@@ -1,3 +1,5 @@
+const backendIp = "http://127.0.0.1:5000"; 
+
 function MD5_hash(){
     document.getElementById('hashed_md5').value = md5(document.getElementById('plain_text_md5').value);
 };
@@ -27,7 +29,7 @@ function AES_dec(){
 
 async function aes_api(text, key, type){
     
-    let res = await fetch("http://127.0.0.1:5000/aes", {
+    let res = await fetch(backendIp + "/aes", {
         headers: {
             'Accept': 'aplication/json',
             'Content-Type': 'application/json'
@@ -71,7 +73,7 @@ function SHA256_dec(){
     sha_api(text, key, 'dec');
 }
 async function GetKeys(){
-    let res = await fetch("http://127.0.0.1:5000/rsa");    
+    let res = await fetch(backendIp + "/rsa");    
     let data = await res.json();
     console.log(data.data.private_key);
     document.getElementById("rsa_pub_key").setAttribute('disabled', '');
@@ -81,7 +83,7 @@ async function GetKeys(){
 }
 async function sha_api(text, key, type){
     
-    let res = await fetch("http://127.0.0.1:5000/rsa", {
+    let res = await fetch(backendIp + "/rsa", {
         headers: {
             'Accept': 'aplication/json',
             'Content-Type': 'application/json'
@@ -103,4 +105,24 @@ async function sha_api(text, key, type){
         document.getElementById("rsa_cypher_text").value = ""
     }
     
+}
+function OpenBox(whatToShow){
+    if(whatToShow == "MD5"){
+
+        document.getElementById("MD5Container").classList.add("appear");
+        document.getElementById("AESContainer").classList.remove("appear");
+        document.getElementById("SHAContainer").classList.remove("appear");
+    }
+    else if(whatToShow == "AES"){
+
+        document.getElementById("MD5Container").classList.remove("appear");
+        document.getElementById("AESContainer").classList.add("appear");
+        document.getElementById("SHAContainer").classList.remove("appear");
+    }else if(whatToShow == "SHA"){
+
+        document.getElementById("MD5Container").classList.remove("appear");
+        document.getElementById("AESContainer").classList.remove("appear");
+        document.getElementById("SHAContainer").classList.add("appear");
+    }
+
 }

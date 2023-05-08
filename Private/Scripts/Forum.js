@@ -6,7 +6,7 @@ function GetPosts(){
     var content;
     setTimeout(async function(){
         try{
-            let res = await fetch("http://127.0.0.1:5000/getPosts");
+            let res = await fetch(backendIp + "/getPosts");
             let data = await res.json();
             content = data['data'];
             console.log(content);
@@ -28,7 +28,7 @@ function GetPostsOfUser(){
     var content;
     setTimeout(async function(){
         try{
-            let res = await fetch("http://127.0.0.1:5000/getPostsOfUser",{
+            let res = await fetch(backendIp + "/getPostsOfUser",{
                 headers: {
                     'Accept': 'aplication/json',
                     'Content-Type': 'application/json'
@@ -40,14 +40,23 @@ function GetPostsOfUser(){
             });
             let data = await res.json();
             content = data['data'];
-            content.forEach(element => {
-                ShowNextPost(element.user, element.date, element.title, element.id);
-            });
+            console.log(content);
+            if(content != ""){
+                content.forEach(element => {
+                    ShowNextPost(element.user, element.date, element.title, element.id);
+                });
+            }else{
+                NoPostsToShow();
+            }
             Reveal();
         }catch(e){
             console.error(e);
         }
     }, 100);
+}
+
+function NoPostsToShow(){
+    document.getElementById("revealContainer").innerHTML = '<p>Sorry! There are no posts to show at this time</p>'
 }
 
 function ShowNextPost(user,date,title,id){
@@ -84,7 +93,7 @@ function Post(){
     setTimeout(async function(){
         
         try{
-            let res = await fetch("http://127.0.0.1:5000/post", {
+            let res = await fetch(backendIp + "/post", {
                 headers: {
                     'Accept': 'aplication/json',
                     'Content-Type': 'application/json'
@@ -134,7 +143,7 @@ function ShowContents(id){
 async function LoadContents(id){
     let content;
     try{
-        let res = await fetch("http://127.0.0.1:5000/postContents", {
+        let res = await fetch(backendIp + "/postContents", {
             headers: {
                 'Accept': 'aplication/json',
                 'Content-Type': 'application/json'
