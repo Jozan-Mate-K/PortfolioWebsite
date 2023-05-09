@@ -24,7 +24,9 @@
             </div>
         </div>  
         <script>
-            GetPostsOfUser();
+            setTimeout(function(){
+                GetPostsOfUser(localStorage.getItem('name'));
+            }, 3000);
         </script>  
     </body>
 <html>
