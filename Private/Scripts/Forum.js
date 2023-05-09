@@ -2,69 +2,68 @@ function GetPosts(){
     const contentContainer = document.getElementById("contentContainer");
     contentContainer.scrollTo(0, 0);
     document.getElementById("revealContainer").innerHTML = "";
-    var content;
-    setTimeout(async function(){
-        try{
-            let res = await fetch(backendIp + "/getPosts",{
-                headers: {
-                    'Accept': 'aplication/json',
-                    'Content-Type': 'application/json'
-                },
-                method: 'POST',
-                body: JSON.stringify({
-                    "username": localStorage.getItem('name'),
-                    "token": localStorage.getItem('token'),
-                })
+    ShowPosts();  
+}
+async function ShowPosts(){
+    try{
+        let res = await fetch(backendIp + "/getPosts",{
+            headers: {
+                'Accept': 'aplication/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify({
+                "username": localStorage.getItem('name'),
+                "token": localStorage.getItem('token'),
+            })
+        });
+        let content = await res.json();
+        
+        if(content['data'] != 'fail'){
+            content.forEach(element => {
+                ShowNextPost(element.user, element.date, element.title, element.id);
             });
-            let content = await res.json();
-            
-            if(content['data'] != 'fail'){
-                content.forEach(element => {
-                    ShowNextPost(element.user, element.date, element.title, element.id);
-                });
-            }else{
-                NoPostsToShow();
-            }
-        }catch(e){
-            console.error(e);
+        }else{
+            NoPostsToShow();
         }
-    }, 1000);
-    
+    }catch(e){
+        console.error(e);
+    }
 }
 
 function GetPostsOfUser(){
-    var user = localStorage.getItem('name');
     const contentContainer = document.getElementById("contentContainer");
     contentContainer.scrollTo(0, 0);
     document.getElementById("revealContainer").innerHTML = "";
-    var content;
-    setTimeout(async function(){
-        try{
-            let res = await fetch(backendIp + "/getPostsOfUser",{
-                headers: {
-                    'Accept': 'aplication/json',
-                    'Content-Type': 'application/json'
-                },
-                method: 'POST',
-                body: JSON.stringify({
-                    "username": user,
-                    "user": user,
-                    "token": localStorage.getItem('token'),
-                })
-            });
-            let content = await res.json();
-            if(content['data'] != 'fail'){
-                content.forEach(element => {
-                    ShowNextPost(element.user, element.date , element.title, element.id);
-                });
-            }else{
-                NoPostsToShow(element.date);
-            }
-        }catch(e){
-            console.error(e);
-        }
-    }, 100);
+    ShowPostsOfUser();
 }
+async function ShowPostsOfUser(){
+    try{
+        let res = await fetch(backendIp + "/getPostsOfUser",{
+            headers: {
+                'Accept': 'aplication/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify({
+                "username": localStorage.getItem('name'),
+                "user": localStorage.getItem('name'),
+                "token": localStorage.getItem('token'),
+            })
+        });
+        let content = await res.json();
+        if(content['data'] != 'fail'){
+            content.forEach(element => {
+                ShowNextPost(element.user, element.date , element.title, element.id);
+            });
+        }else{
+            NoPostsToShow(element.date);
+        }
+    }catch(e){
+        console.error(e);
+    }
+}
+
 
 function NoPostsToShow(){
     document.getElementById("revealContainer").innerHTML = '<p>Sorry! There are no posts to show at this time</p>'
@@ -100,40 +99,40 @@ function Post(){
         month = '0' + month;
     }
     sendDate = year + "-" + month + "-" + date;
-    
-    setTimeout(async function(){
+    SendPost(sendDate, title, post);
+}
+async function SendPost(sendDate, title, post){
         
-        try{
-            let res = await fetch(backendIp + "/post", {
-                headers: {
-                    'Accept': 'aplication/json',
-                    'Content-Type': 'application/json'
-                },
-                method: 'POST',
-                body: JSON.stringify({
-                    "username": localStorage.getItem('name'),
-                    "postDate": sendDate,
-                    "title": title,
-                    "contents": post,
-                })
-            });
+    try{
+        let res = await fetch(backendIp + "/post", {
+            headers: {
+                'Accept': 'aplication/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify({
+                "username": localStorage.getItem('name'),
+                "postDate": sendDate,
+                "title": title,
+                "contents": post,
+            })
+        });
 
-            let data = await res.json();
-            content = data['data'];
-        }catch(e){
-            console.error(e);
-        }finally{
-            if(content != "error"){
-                ShowPostPanel();
-                GetPosts();
-                document.getElementById("postTitle").value = "";
-                document.getElementById("post").value = "";
-            }else{
-                alert("There was something wrong");
-            }
-
+        let data = await res.json();
+        content = data['data'];
+    }catch(e){
+        console.error(e);
+    }finally{
+        if(content != "error"){
+            ShowPostPanel();
+            GetPosts();
+            document.getElementById("postTitle").value = "";
+            document.getElementById("post").value = "";
+        }else{
+            alert("There was something wrong");
         }
-    }, 100);
+
+    }
 }
 
 function ShowContents(id){
