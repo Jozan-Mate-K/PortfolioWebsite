@@ -2,7 +2,6 @@ function GetPosts(){
     const contentContainer = document.getElementById("contentContainer");
     contentContainer.scrollTo(0, 0);
     document.getElementById("revealContainer").innerHTML = "";
-    console.log('adadsadas');
     setTimeout(() => {
         ShowPosts(); 
     }, 300);
@@ -58,6 +57,7 @@ async function ShowPostsOfUser(){
             })
         });
         let content = await res.json();
+        console.log(content);
         if(content['data'] != 'fail'){
             content.forEach(element => {
                 ShowNextPost(element.user, element.date , element.title, element.id);
