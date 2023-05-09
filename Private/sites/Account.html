@@ -14,6 +14,7 @@
                     <input type="password" id="oldPass" placeholder="Old Password">
                     <input type="password" id="newPass" placeholder="New Password">
                     <input type="password" id="confNewPass" placeholder="Confirm New Password">
+                    <div id="response"></div>
                     <button onclick="changePassword()" class="encryptButton" style="color: white;">Set new password</button>
                 </div>
                 <div style="flex-grow: 1; padding-left: 10%;">
@@ -23,10 +24,5 @@
                 
             </div>
         </div>  
-        <script>
-            setTimeout(function(){
-                GetPostsOfUser(localStorage.getItem('name'));
-            }, 3000);
-        </script>  
     </body>
 <html>

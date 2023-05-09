@@ -64,7 +64,7 @@ async function ShowPostsOfUser(){
             console.error("Couldn't fetch posts");
         }else{
             content.forEach(element => {
-                ShowNextPost(element.user, element.date , element.title, element.id);
+                ShowNextPostOfUser(element.user, element.date , element.title, element.id);
             });
         }
     }catch(e){
@@ -79,6 +79,9 @@ function NoPostsToShow(){
 
 function ShowNextPost(user,date,title,id){
     document.getElementById("revealContainer").innerHTML += '<div id="head'+id+'" onclick="ShowContents('+ id +')" class="reveal forumButton"><div><h1>' + user + '</h1><p style="border: 0; font-style: italic;">' + date + '</p></div><p>'+ title + '</p></div><div id="'+ id +'" class="reveal commentContainer"></div>';
+}
+function ShowNextPostOfUser(user,date,title,id){
+    document.getElementById("revealContainer").innerHTML += '<div id="head'+id+'" onclick="ShowContents('+ id +')" class="reveal forumButton"><div><h1>' + user + '</h1><p style="border: 0; font-style: italic;">' + date + '</p></div><p>'+ title + '</p></div><button class="reveal deleteButton" onclick="DeletePost('+id+');" >Delete</button><div id="'+ id +'" class="reveal commentContainer"></div>';
 }
 
 function Post(){
@@ -142,7 +145,27 @@ async function SendPost(sendDate, title, post){
 
     }
 }
-
+async function DeletePost(id){
+    try{
+        let res = await fetch(backendIp + "/deletePost",{
+            headers: {
+                'Accept': 'aplication/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify({
+                "postId":id,
+                "token": localStorage.getItem('token'),
+                "username": localStorage.getItem('name'),
+                "user": localStorage.getItem('name')
+            })
+        }); 
+    }catch(e){
+        console.error(e)
+    }
+    load('./Account.html', 'Account'); 
+    GetPostsOfUser(); 
+}
 function ShowContents(id){
     let commentWindow = document.getElementById(id);
     let head = document.getElementById("head"+id);

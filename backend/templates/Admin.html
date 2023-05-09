@@ -191,10 +191,10 @@
                 return;
             }
             if (isAdmin){
-                profileContainer.innerHTML += "<div class='userProfile'><h2 id='username"+id +"'>"+username+"</h2><div class='buttonContainer'><button id='promoteButtonID' onclick='DemoteUser("+id+");' class='controlButton'>Demote</button><button id='deleteButtonID' onclick='DeleteUser("+id +")' class='controlButton'>Delete</button><button id='showPostsButtonID' onclick=\"ShowPosts(\'"+username+"\',"+id+");\" class='controlButton'>Show Posts</button></div></div><div class='postContainer' id='posts"+id+"'></div>";
+                profileContainer.innerHTML += "<div class='userProfile'><h2 id='username"+id +"'>"+username+"</h2><div class='buttonContainer'><button id='demoteButtonID' onclick='DemoteUser("+id+");' class='controlButton'>Demote</button>><button id='promoteButtonID' onclick='ResetPassword("+id+");' class='controlButton'>Reset Password</button><button id='deleteButtonID' onclick='DeleteUser("+id +")' class='controlButton'>Delete</button><button id='showPostsButtonID' onclick=\"ShowPosts(\'"+username+"\',"+id+");\" class='controlButton'>Show Posts</button></div></div><div class='postContainer' id='posts"+id+"'></div>";
             }else{
                 
-                profileContainer.innerHTML += "<div class='userProfile'><h2 id='username"+id +"'>"+username+"</h2><div class='buttonContainer'><button id='promoteButtonID' onclick='PromoteUser("+id+");' class='controlButton'>Promote</button><button id='deleteButtonID' onclick='DeleteUser("+id +")' class='controlButton'>Delete</button><button id='showPostsButtonID' onclick=\"ShowPosts(\'"+username+"\',"+id+");\" class='controlButton'>Show Posts</button></div></div><div class='postContainer' id='posts"+id+"'></div>";
+                profileContainer.innerHTML += "<div class='userProfile'><h2 id='username"+id +"'>"+username+"</h2><div class='buttonContainer'><button id='promoteButtonID' onclick='PromoteUser("+id+");' class='controlButton'>Promote</button><button id='promoteButtonID' onclick='ResetPassword("+id+");' class='controlButton'>Reset Password</button><button id='deleteButtonID' onclick='DeleteUser("+id +")' class='controlButton'>Delete</button><button id='showPostsButtonID' onclick=\"ShowPosts(\'"+username+"\',"+id+");\" class='controlButton'>Show Posts</button></div></div><div class='postContainer' id='posts"+id+"'></div>";
             }
         }
         function NoUsersToShow(){
@@ -256,6 +256,26 @@
             }catch(e){
                 console.error(e)
             }
+            location.reload();
+        }
+        async function ResetPassword(id){
+            try{
+                let res = await fetch(backendIp + "/resetPassword",{
+                    headers: {
+                        'Accept': 'aplication/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'POST',
+                    body: JSON.stringify({
+                        "userId":id,
+                        "token": localStorage.getItem('token'),
+                        "username": localStorage.getItem('name'),
+                    })
+                }); 
+            }catch(e){
+                console.error(e)
+            }
+            alert("Password reset to 'Password123'")
             location.reload();
         }
         function ShowPosts(username, id){

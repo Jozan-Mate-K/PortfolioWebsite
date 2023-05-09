@@ -20,15 +20,16 @@ def pad(txt: str):
 
 #adminPass = "b454e3f209198b6c2c9d6ce0e2838ea2%A"
 
+dbip = "192.168.0.200:3306"
 
 app = Flask(__name__)
 
-engine = create_engine('mysql+mysqldb://admin:b454e3f209198b6c2c9d6ce0e2838ea2%A@192.168.0.200:3306/HomeProject')
+engine = create_engine('mysql+mysqldb://admin:b454e3f209198b6c2c9d6ce0e2838ea2%A@'+dbip+'/HomeProject')
 
 
 CORS(app)
 
-# THESE SHOULD BE HANDLED BY A DB
+
 
 
 @app.route('/login', methods=['POST']) #yess
@@ -139,9 +140,11 @@ def postsEndpoint():
 @app.route('/getPostsOfUser', methods=['POST']) #yess
 def postsOfUser():
     with engine.connect() as conn:
-        q= text("SELECT token, isAdmin FROM users WHERE username = '" + request.json["username"] +"'")
+        q= text("SELECT token, isAdmin, username FROM users WHERE username = '" + request.json["username"] +"'")
         rs = conn.execute(q).fetchone()
         if request.json["token"] != rs.token:
+            return {'data': 'fail'}
+        if request.json["username"] != request.json["user"] and rs.isAdmin == 0:
             return {'data': 'fail'}
         
     with engine.connect() as conn:
@@ -191,39 +194,49 @@ def postEndpoint():
 @app.route('/invite', methods=['POST']) #yess
 def invite():
     with engine.connect() as conn:
+        q= text("SELECT token FROM users WHERE username = '" + request.json["username"] +"'")
+        rs = conn.execute(q).fetchone()
+        if request.json["token"] != rs.token:
+            return {'data': 'fail'}
+        
+    with engine.connect() as conn:
         newToken = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(8))
-        q= text("INSERT INTO users(username, hashedPass, isAdmin, token) VALUES('"+ request.json['name'] + "', '1a1dc91c907325c69271ddf0c944bc72', false, '"+ newToken +"'); ")
+        q= text("INSERT INTO users(username, hashedPass, isAdmin, token) VALUES('"+ request.json['name'] + "', '42f749ade7f9e195bf475f37a44cafcb', false, '"+ newToken +"'); ")
         conn.execute(q)
         conn.commit()
     return {'data': "success"}
 
 
-@app.route('/changepassword', methods=['POST'])
-def changepassword():
-    success = False
-    with open('./database/users.txt', 'r') as f:
-        lines = f.readlines()
-        f.close()
-    with open('./database/users.txt', 'w') as f:
-        for line in lines:
-            if request.json['name'] not in line:
-                f.write(line)
-            else:
-                split = line.strip().split(':')
-                if request.json['old_pass'] == split[1]:
-                    f.write(
-                        f"{request.json['name']}:{request.json['new_pass']}:{split[2]}:{split[3]}:{split[4]}")
-                    success = True
-                else:
-                    f.write(line)
+@app.route('/changePassword', methods=['POST'])
+def changePassword():
+    with engine.connect() as conn:
+        q= text("SELECT token, isAdmin, hashedPass FROM users WHERE username = '" + request.json["username"] +"'")
+        rs = conn.execute(q).fetchone()
+        if request.json["token"] != rs.token:
+            return {'data': 'fail'}
+        if request.json["oldPass"] != rs.hashedPass:
+            return {'data': 'wrongPass'}
 
-        f.close()
-    if success:
-        return {'result': 'success'}
-    else:
-        return {'result': 'fail'}
+    with engine.connect() as conn:
+        q= text("UPDATE users SET hashedPass = '"+request.json["newPass"]+"' WHERE username = '" + request.json["username"] + "'")
+        conn.execute(q)
+        conn.commit()
+    return {'data': "success"}
 
-
+@app.route('/resetPassword', methods=['POST'])
+def resetPassword():
+    with engine.connect() as conn:
+        q= text("SELECT isAdmin, token FROM users WHERE username = '" + request.json["username"] +"'")
+        rs = conn.execute(q).fetchone()
+        if rs.isAdmin == 0 and request.json["token"] != rs.token:
+            return {'data': 'fail'}
+        
+    with engine.connect() as conn:
+        q= text("UPDATE users SET hashedPass = '42f749ade7f9e195bf475f37a44cafcb' WHERE userId = '" + str(request.json['userId']) + "'")
+        conn.execute(q)
+        conn.commit()
+    return {'data': "success"}
+        
 @app.route('/delete', methods=['POST'])
 def delete():
     with engine.connect() as conn:
@@ -241,9 +254,11 @@ def delete():
 @app.route('/deletePost', methods=['POST']) #no done
 def deletePost():
     with engine.connect() as conn:
-        q= text("SELECT isAdmin, token FROM users WHERE username = '" + request.json["username"] +"'")
+        q= text("SELECT token, isAdmin, username FROM users WHERE username = '" + request.json["username"] +"'")
         rs = conn.execute(q).fetchone()
-        if rs.isAdmin == 0 and request.json["token"] != rs.token:
+        if request.json["token"] != rs.token:
+            return {'data': 'fail'}
+        if request.json["username"] != request.json["user"] and rs.isAdmin == 0:
             return {'data': 'fail'}
 
     with engine.connect() as conn:

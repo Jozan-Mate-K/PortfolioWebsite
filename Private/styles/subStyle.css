@@ -54,6 +54,17 @@ input[type = text], input[type = password]{
     flex-direction: column;
     justify-content: flex-start;
     align-items: stretch;
+    width: 20%;
+}
+#response{
+    inline-size: 100%;
+    word-wrap: break-word;
+    color: white;
+    width: auto;
+    text-align: center;
+    line-height: 120%;
+    margin-top: 2px;
+    margin-bottom: 5px;
 }
 #revealContainer{
     width: 100%;
@@ -218,6 +229,22 @@ input[type = text], input[type = password]{
 #newPostButton:active{
     height: calc( var(--lockSize) * 1.2);
     width: calc( var(--lockSize) * 1.2);
+}
+.deleteButton{
+    margin: 0;
+    background: maroon;
+    color: white;
+    font-size: 18px;
+    transition: all 0.2s ease-in;
+}
+.deleteButton:hover{
+    box-shadow: 0 0 2px white;
+    font-size: 20px;
+}
+.deleteButton:active{
+    color:maroon;
+    background: white;
+    font-size: 18px;
 }
 .keyContainer{
     width: 30%;
