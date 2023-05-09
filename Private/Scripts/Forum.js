@@ -3,7 +3,10 @@ function GetPosts(){
     contentContainer.scrollTo(0, 0);
     document.getElementById("revealContainer").innerHTML = "";
     console.log('adadsadas');
-    ShowPosts();  
+    setTimeout(() => {
+        ShowPosts(); 
+    }, 300);
+ 
 }
 async function ShowPosts(){
     try{
@@ -35,8 +38,10 @@ async function ShowPosts(){
 function GetPostsOfUser(){
     const contentContainer = document.getElementById("contentContainer");
     contentContainer.scrollTo(0, 0);
-    document.getElementById("revealContainer").innerHTML = "";
-    ShowPostsOfUser();
+    document.getElementById("revealContainer").innerHTML = ""; 
+    setTimeout(() => {
+        ShowPostsOfUser();
+    }, 300);
 }
 async function ShowPostsOfUser(){
     try{
