@@ -3,8 +3,8 @@
         <link rel="stylesheet" href="../styles/subStyle.css">
 
     </head>
-    <body onload="GetPosts();">
-        <div id="subMain"> 
+    <body >
+        <div id="subMain" onload="GetPosts();"> 
             <section>
                 <h1>Welcome to the forum!</h1>
             </section>
@@ -22,18 +22,4 @@
             </div>
         </div>
     </body>
-    <script>
-        function LoadPosts(){
-            document.addEventListener('DOMContentLoaded', function() {
-                console.log("Wooohoooo");
-                GetPosts();
-            }, false);
-            setTimeout(function(){
-                console.log("Wooohoooo2");
-
-            }, 3000)
-
-        }
-        LoadPosts();
-    </script>
 <html>
