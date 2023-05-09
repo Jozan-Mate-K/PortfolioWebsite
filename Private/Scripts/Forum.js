@@ -21,13 +21,14 @@ async function ShowPosts(){
             })
         });
         let content = await res.json();
-        
-        if(content['data'] != 'fail' && content.length != 0){
-            content.forEach(element => {
-                ShowNextPost(element.user, element.date, element.title, element.id);
-            });
-        }else{
+        if(content.length == 0){
             NoPostsToShow();
+        }else if(content['data'] == 'fail'){
+            console.error("Couldn't fetch posts");
+        }else{
+            content.forEach(element => {
+                ShowNextPost(element.user, element.date , element.title, element.id);
+            });
         }
     }catch(e){
         console.error(e);
@@ -57,13 +58,14 @@ async function ShowPostsOfUser(){
             })
         });
         let content = await res.json();
-        console.log(content);
-        if(content['data'] != 'fail' && content.length != 0){
+        if(content.length == 0){
+            NoPostsToShow();
+        }else if(content['data'] == 'fail'){
+            console.error("Couldn't fetch posts");
+        }else{
             content.forEach(element => {
                 ShowNextPost(element.user, element.date , element.title, element.id);
             });
-        }else{
-            NoPostsToShow(element.date);
         }
     }catch(e){
         console.error(e);
@@ -72,7 +74,7 @@ async function ShowPostsOfUser(){
 
 
 function NoPostsToShow(){
-    document.getElementById("revealContainer").innerHTML = '<p>Sorry! There are no posts to show at this time</p>'
+    document.getElementById("revealContainer").innerHTML = '<p>Sorry! There are no posts to show at this time</p>';
 }
 
 function ShowNextPost(user,date,title,id){
