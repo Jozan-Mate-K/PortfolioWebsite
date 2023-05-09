@@ -6,6 +6,7 @@ import random
 import string
 import base64
 import rsa
+import hashlib
 
 import os
 from flask_sqlalchemy import SQLAlchemy
@@ -47,6 +48,22 @@ def adminLogin():
         return render_template('AdminLogin.html')
     else:
         with engine.connect() as conn:
+            passWD = request.json["password"]
+            hashedPass = hashlib.md5(passWD.encode('utf-8')).hexdigest()
+
+            q= text("SELECT hashedPass,token, isAdmin FROM users WHERE username = '" + request.json["username"] +"'")
+            rs = conn.execute(q).fetchone()
+            if rs != None and rs.isAdmin and hashedPass == rs.hashedPass:
+                return {'data': 'success', 'token': rs.token}
+            
+        return {"data": "fail"}
+
+@app.route('/admin', methods=['GET','POST']) #yess
+def admin():
+    if request.method == 'GET':
+        return render_template('Admin.html')
+    else:
+        with engine.connect() as conn:
             q= text("SELECT hashedPass,token, isAdmin FROM users WHERE username = '" + request.json["username"] +"'")
             rs = conn.execute(q).fetchone()
             if rs != None and rs.isAdmin and request.json["password"] == rs.hashedPass:
@@ -58,9 +75,19 @@ def adminLogin():
 @app.route('/checkToken', methods=['POST']) #yess
 def checkToken():
     with engine.connect() as conn:
-        q= text("SELECT * FROM users WHERE username = '" + request.json["username"] +"'")
+        q= text("SELECT token FROM users WHERE username = '" + request.json["username"] +"'")
         rs = conn.execute(q).fetchone()
         if  request.json["token"] == rs.token:
+            return {'data': 'success'}
+        
+    return {"data": "fail"}
+
+@app.route('/checkTokenAdmin', methods=['POST']) #yess
+def checkTokenAdmin():
+    with engine.connect() as conn:
+        q= text("SELECT token, isAdmin FROM users WHERE username = '" + request.json["username"] +"'")
+        rs = conn.execute(q).fetchone()
+        if rs.isAdmin and request.json["token"] == rs.token:
             return {'data': 'success'}
         
     return {"data": "fail"}
@@ -87,9 +114,9 @@ def forumEndpoint():
 @app.route('/getPosts', methods=['POST']) #yess
 def postsEndpoint():
     with engine.connect() as conn:
-        q= text("SELECT * FROM users WHERE token = '" + request.json["token"] +"'")
+        q= text("SELECT token FROM users WHERE username = '" + request.json["username"] +"'")
         rs = conn.execute(q).fetchone()
-        if  request.json["token"] != rs.token:
+        if request.json["token"] != rs.token:
             return {'data': 'fail'}
         
     with engine.connect() as conn:
@@ -112,6 +139,12 @@ def postsEndpoint():
 @app.route('/getPostsOfUser', methods=['POST']) #yess
 def postsOfUser():
     with engine.connect() as conn:
+        q= text("SELECT token, isAdmin FROM users WHERE username = '" + request.json["username"] +"'")
+        rs = conn.execute(q).fetchone()
+        if request.json["token"] != rs.token:
+            return {'data': 'fail'}
+        
+    with engine.connect() as conn:
         q= text("SELECT * FROM posts WHERE username = '" + request.json["user"] +"' ORDER BY postDate DESC")
         rs = conn.execute(q)
         forumPostData = []
@@ -126,6 +159,26 @@ def postsOfUser():
 
         return forumPostData    
 
+@app.route('/getUsers', methods=['Post'])
+def getUsers():
+    with engine.connect() as conn:
+        q= text("SELECT isAdmin, token FROM users WHERE username = '" + request.json["username"] +"'")
+        rs = conn.execute(q).fetchone()
+        if rs.isAdmin == 0 and request.json["token"] != rs.token:
+            return {'data': 'fail'}
+        
+    with engine.connect() as conn:
+        q= text("SELECT userId, username, isAdmin FROM users")
+        rs = conn.execute(q)
+        userData = []
+        for row in rs:
+            userData.append({
+                'id': row.userId,
+                'user': row.username,
+                'isAdmin': row.isAdmin
+            })
+
+        return userData 
 
 @app.route('/post', methods=['POST']) #yess
 def postEndpoint():
@@ -173,47 +226,60 @@ def changepassword():
 
 @app.route('/delete', methods=['POST'])
 def delete():
-    with open('./database/users.txt', 'r') as f:
-        lines = f.readlines()
-        f.close()
-    with open('./database/users.txt', 'w') as f:
-        for line in lines:
-            if request.json['name'] not in line:
-                f.write(line)
-        f.close()
-    return {'result': 'success'}
+    with engine.connect() as conn:
+        q= text("SELECT isAdmin, token FROM users WHERE username = '" + request.json["username"] +"'")
+        rs = conn.execute(q).fetchone()
+        if rs.isAdmin == 0 and request.json["token"] != rs.token:
+            return {'data': 'fail'}
 
+    with engine.connect() as conn:
+        q= text("DELETE FROM users WHERE userId = '" + str(request.json['userId']) + "'")
+        conn.execute(q)
+        conn.commit()
+    return {'data': "success"}
 
-@app.route('/approve', methods=['POST'])
-def approve():
-    with open('./database/users.txt', 'r') as f:
-        lines = f.readlines()
-        f.close()
-    with open('./database/users.txt', 'w') as f:
-        for line in lines:
-            if request.json['name'] not in line:
-                f.write(line)
-            else:
-                split = line.strip().split(':')
-                f.write(f"{split[0]}:{split[1]}:1:{split[3]}:{split[4]}")
-        f.close()
-    return {'result': 'success'}
+@app.route('/deletePost', methods=['POST']) #no done
+def deletePost():
+    with engine.connect() as conn:
+        q= text("SELECT isAdmin, token FROM users WHERE username = '" + request.json["username"] +"'")
+        rs = conn.execute(q).fetchone()
+        if rs.isAdmin == 0 and request.json["token"] != rs.token:
+            return {'data': 'fail'}
+
+    with engine.connect() as conn:
+        q= text("DELETE FROM posts WHERE postId = '" + str(request.json['postId']) + "'")
+        conn.execute(q)
+        conn.commit()
+    return {'data': "success"}
 
 
 @app.route('/promote', methods=['POST'])
 def promote():
-    with open('./database/users.txt', 'r') as f:
-        lines = f.readlines()
-        f.close()
-    with open('./database/users.txt', 'w') as f:
-        for line in lines:
-            if request.json['name'] not in line:
-                f.write(line)
-            else:
-                split = line.strip().split(':')
-                f.write(f"{split[0]}:{split[1]}:{split[2]}:1:{split[4]}")
-        f.close()
-    return {'result': 'success'}
+    with engine.connect() as conn:
+        q= text("SELECT isAdmin, token FROM users WHERE username = '" + request.json["username"] +"'")
+        rs = conn.execute(q).fetchone()
+        if rs.isAdmin == 0 and request.json["token"] != rs.token:
+            return {'data': 'fail'}
+
+    with engine.connect() as conn:
+        q= text("UPDATE users SET isAdmin = true WHERE userId = '" + str(request.json['userId']) + "'")
+        conn.execute(q)
+        conn.commit()
+    return {'data': "success"}
+
+@app.route('/demote', methods=['POST'])
+def demote():
+    with engine.connect() as conn:
+        q= text("SELECT isAdmin, token FROM users WHERE username = '" + request.json["username"] +"'")
+        rs = conn.execute(q).fetchone()
+        if rs.isAdmin == 0 and request.json["token"] != rs.token:
+            return {'data': 'fail'}
+
+    with engine.connect() as conn:
+        q= text("UPDATE users SET isAdmin = false WHERE userId = '" + str(request.json['userId']) + "'")
+        conn.execute(q)
+        conn.commit()
+    return {'data': "success"}
 
 
 @app.route('/aes', methods=['POST'])

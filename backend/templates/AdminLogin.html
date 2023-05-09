@@ -2,9 +2,6 @@
 <html>
     <head>  
         <title>Login</title>
-        <link rel="stylesheet" href="./styles/style.css">
-        <script src="./Scripts/LoginConnect.js"></script>
-        <script src="./Scripts/md5.js"></script>
         <style>
             #master{
                 height: 100svh;
@@ -49,6 +46,7 @@
         <script>
 
             const backendIp = "http://127.0.0.1:5000"
+            const frontendIp = "http://127.0.0.1:5500"
 
             function VerifyAdminLogin () {
                 let username = document.getElementById("username").value;
@@ -88,6 +86,9 @@
             function Deny(){
                 document.getElementById("validityMessage").innerHTML = 'Incorrect username <br> or password!';
             }
+            function BackToPrivate(){
+                window.location.href=frontendIp + "/Private/sites/Main.html";
+            }
         </script>
     </head>
     <body class="master loginMaster" id="master">
@@ -97,6 +98,7 @@
             
             <p id="validityMessage"></p>
             <button onclick="VerifyAdminLogin();">Login</button>
+            <button onclick="BackToPrivate();">Back</button>
         </div>
     </body>
 </html>

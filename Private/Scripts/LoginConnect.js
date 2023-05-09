@@ -53,3 +53,7 @@ function Deny () {
         lockContainer.classList.remove("animateDeny");
     }, denyAnimLength*1000);
 }
+function BackToPublic(){
+    localStorage.clear();
+    window.location.href = "/";
+}

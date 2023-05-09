@@ -12,12 +12,13 @@ function GetPosts(){
                 },
                 method: 'POST',
                 body: JSON.stringify({
+                    "username": localStorage.getItem('name'),
                     "token": localStorage.getItem('token'),
                 })
             });
             let content = await res.json();
             
-            if(content != ""){
+            if(content['data'] != 'fail'){
                 content.forEach(element => {
                     ShowNextPost(element.user, element.date, element.title, element.id);
                 });
@@ -46,11 +47,13 @@ function GetPostsOfUser(){
                 },
                 method: 'POST',
                 body: JSON.stringify({
+                    "username": user,
                     "user": user,
+                    "token": localStorage.getItem('token'),
                 })
             });
             let content = await res.json();
-            if(content != ""){
+            if(content['data'] != 'fail'){
                 content.forEach(element => {
                     ShowNextPost(element.user, element.date , element.title, element.id);
                     console.log(element.date)
