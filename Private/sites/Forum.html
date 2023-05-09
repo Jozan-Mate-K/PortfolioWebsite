@@ -16,15 +16,12 @@
                 </div>
                 <div id="postButtonContainer">
                     <div id="sendPostButton" class="postButton" onclick="Post();"></div>
-                    <div id="newPostButton" class="postButton" onclick="ShowPostPanel()"></div>
+                    <div id="newPostButton" class="postButton" onclick="ShowPostPanel();GetPosts(); "></div>
 
                 </div>
             </div>
         </div>
         <script>
-            setTimeout(function(){
-                GetPosts();
-            }, 3000);
         </script>
     </body>
 <html>
