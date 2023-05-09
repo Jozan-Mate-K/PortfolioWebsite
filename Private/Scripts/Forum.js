@@ -22,7 +22,7 @@ async function ShowPosts(){
         });
         let content = await res.json();
         
-        if(content['data'] != 'fail'){
+        if(content['data'] != 'fail' && content.length != 0){
             content.forEach(element => {
                 ShowNextPost(element.user, element.date, element.title, element.id);
             });
@@ -58,7 +58,7 @@ async function ShowPostsOfUser(){
         });
         let content = await res.json();
         console.log(content);
-        if(content['data'] != 'fail'){
+        if(content['data'] != 'fail' && content.length != 0){
             content.forEach(element => {
                 ShowNextPost(element.user, element.date , element.title, element.id);
             });
