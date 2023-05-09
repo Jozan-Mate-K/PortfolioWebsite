@@ -28,7 +28,7 @@ function GetPosts(){
         }catch(e){
             console.error(e);
         }
-    }, 100);
+    }, 1000);
     
 }
 
@@ -56,7 +56,6 @@ function GetPostsOfUser(){
             if(content['data'] != 'fail'){
                 content.forEach(element => {
                     ShowNextPost(element.user, element.date , element.title, element.id);
-                    console.log(element.date)
                 });
             }else{
                 NoPostsToShow(element.date);
