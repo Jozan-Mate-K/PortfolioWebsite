@@ -2,6 +2,7 @@ function GetPosts(){
     const contentContainer = document.getElementById("contentContainer");
     contentContainer.scrollTo(0, 0);
     document.getElementById("revealContainer").innerHTML = "";
+    console.log('adadsadas');
     ShowPosts();  
 }
 async function ShowPosts(){
