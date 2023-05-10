@@ -22,7 +22,7 @@ def pad(txt: str):
 # adminPass = "b454e3f209198b6c2c9d6ce0e2838ea2%A"
 
 
-dbip = "192.168.0.200:3306"
+dbip = "31.46.141.2:5000"
 
 app = Flask(__name__)
 
@@ -208,6 +208,13 @@ def getUsers():
 
 @app.route('/post', methods=['POST'])  # yess
 def postEndpoint():
+    with engine.connect() as conn:
+        q = text("SELECT token FROM users WHERE username = '" +
+                 request.json["username"] + "'")
+        rs = conn.execute(q).fetchone()
+        if request.json["token"] != rs.token:
+            return {'data': 'fail'}
+        
     with engine.connect() as conn:
         q = text("INSERT INTO posts(username, postDate, title, contents) VALUES('" +
                  request.json['username'] + "', '" + request.json['postDate'] + "', '" + request.json['title'] + "', '" + request.json['contents'] + "'); ")
