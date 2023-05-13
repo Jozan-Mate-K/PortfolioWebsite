@@ -1,4 +1,4 @@
-const backendIp = "http://jmbackend.eu-north-1.elasticbeanstalk.com/"; 
+const backendIp = "https://jmbackend.eu-north-1.elasticbeanstalk.com"; 
 
 function MD5_hash(){
     document.getElementById('hashed_md5').value = md5(document.getElementById('plain_text_md5').value);

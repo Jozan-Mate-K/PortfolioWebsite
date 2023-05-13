@@ -1,4 +1,4 @@
-const backendIp = "http://jmbackend.eu-north-1.elasticbeanstalk.com/"
+const backendIp = "https://jmbackend.eu-north-1.elasticbeanstalk.com"
 
 function VerifyLogin () {
     let username = document.getElementById("username").value;
