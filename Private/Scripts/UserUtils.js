@@ -72,6 +72,7 @@ async function SendChangePass(endpoint, _body, _method){
 function Invite(){
     let endpoint = "/invite";
     let newUserName = document.getElementById("newUserName").value;
+    let responseField = document.getElementById("response");
     let body = {
         'name' : newUserName,
         'username': localStorage.getItem('name'),
@@ -79,17 +80,18 @@ function Invite(){
     };
     method = 'POST';
     if(newUserName.length == 0){
-        alert("Please enter a name")
+        responseField.innerHTML = "Please enter a name";
         return;
     }
     if(newUserName.length < 4){
-        alert("Username too short")
+        responseField.innerHTML = "Username is too short";
         return;
     }
     if(newUserName.length > 16){
-        alert("Username too long")
+        responseField.innerHTML = "Username is too long";
         return;
     }
+    responseField.innerHTML = "Username successfully created!";
     document.getElementById("newUserName").value = "";
     call_api(endpoint, body, method);
 }
