@@ -1,7 +1,0 @@
-flask
-flask_cors
-rsa
-pycryptodome
-sqlalchemy
-mysqlclient 
-flask_apscheduler
