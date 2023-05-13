@@ -91,7 +91,7 @@ function Invite(){
         responseField.innerHTML = "Username is too long";
         return;
     }
-    responseField.innerHTML = "Username successfully created!";
+    responseField.innerHTML = "User successfully created!";
     document.getElementById("newUserName").value = "";
     call_api(endpoint, body, method);
 }
