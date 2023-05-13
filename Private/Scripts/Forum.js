@@ -123,6 +123,7 @@ async function SendPost(sendDate, title, post){
             method: 'POST',
             body: JSON.stringify({
                 "username": localStorage.getItem('name'),
+                "token": localStorage.getItem('token'),
                 "postDate": sendDate,
                 "title": title,
                 "contents": post,
