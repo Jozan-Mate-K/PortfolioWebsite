@@ -56,7 +56,6 @@ async function SendChangePass(endpoint, _body, _method){
         
         let data = await res.json();
 
-        console.log(data);
         if(data['data'] == 'fail'){
             responseField.innerHTML = "Please log in again";
         }else if(data['data'] == 'wrongPass'){

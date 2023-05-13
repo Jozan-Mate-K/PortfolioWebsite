@@ -7,7 +7,7 @@ function VerifyLogin () {
         login_api(username, password);
     }
     catch (error){
-        console.log(error);
+        console.error(error);
     }
 }
 async function login_api(username, password){

@@ -75,7 +75,6 @@ function SHA256_dec(){
 async function GetKeys(){
     let res = await fetch(backendIp + "/rsa");    
     let data = await res.json();
-    console.log(data.data.private_key);
     document.getElementById("rsa_pub_key").setAttribute('disabled', '');
     document.getElementById("rsa_pub_key").value = data.data.public_key;
     document.getElementById("rsa_priv_key").setAttribute('disabled', '');
