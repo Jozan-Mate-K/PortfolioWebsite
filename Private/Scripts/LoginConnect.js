@@ -40,9 +40,9 @@ function Pass () {
     const passAnimLength=0.5;
     document.getElementById("lock").style.animation="pass " + passAnimLength + "s steps(10)";
     setTimeout(function(){
+        document.getElementById("lock").classList.add("passed");
         window.location.href="./sites/Main.html";
-        //DONT FORGET TO CHANGE THIS 
-    },passAnimLength*999);
+    },passAnimLength*1000);
 }
 function Deny () {
     const denyAnimLength = 0.5;

@@ -75,6 +75,9 @@
     0% { transform: translate(0%, 0);}
     100% {transform: translate(-100%, 0);}
 }
+.passed{
+    transform: translate(-90%, 0);
+}
 .key{
     /*animation: pass 0.5s steps(10);*/
     width: var(--lockSize);
