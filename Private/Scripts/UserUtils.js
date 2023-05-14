@@ -2,6 +2,15 @@ function changePassword(){
     let old_pass = document.getElementById("oldPass").value;
     let new_pass = document.getElementById("newPass").value;
     let conf_new_pass = document.getElementById("confNewPass").value;
+
+    old_pass.replace("'","\'");
+    new_pass.replace("'","\'");
+    conf_new_pass.replace("'","\'");
+    old_pass.replace('"','\"');
+    new_pass.replace('"','\"');
+    conf_new_pass.replace('"','\"');
+    
+
     let responseField = document.getElementById("response");
     let endpoint = "/changePassword";
     let body = {
@@ -72,6 +81,10 @@ async function SendChangePass(endpoint, _body, _method){
 function Invite(){
     let endpoint = "/invite";
     let newUserName = document.getElementById("newUserName").value;
+
+    newUserName.replace("'","\'");
+    newUserName.replace('"','\"');
+
     let responseField = document.getElementById("response");
     let body = {
         'name' : newUserName,

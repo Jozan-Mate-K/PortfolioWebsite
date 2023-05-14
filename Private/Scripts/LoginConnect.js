@@ -3,6 +3,12 @@ const backendIp = "https://jmbackend.eu-north-1.elasticbeanstalk.com"
 function VerifyLogin () {
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
+
+    username.replace("'","\'");
+    username.replace('"','\"');
+    password.replace("'","\'");
+    password.replace('"','\"');
+
     try{
         login_api(username, password);
     }

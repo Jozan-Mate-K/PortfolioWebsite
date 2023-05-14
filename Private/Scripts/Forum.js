@@ -95,6 +95,11 @@ function Post(){
         alert("There is no body!");
         return;
     }
+
+    title.replace("'","\'");
+    post.replace("'","\'");
+    title.replace('"','\"');
+    post.replace('"','\"');
     let date, month, year, sendDate;
     let inputDate = new Date();
 
