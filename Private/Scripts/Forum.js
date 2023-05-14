@@ -94,8 +94,6 @@ function Post(){
     title = title.replace(/"/g,'\\"');
     post = post.replace(/"/g,'\\"');
 
-    console.log(post);
-    console.log(title);
 
     if(title == ""){
         responseField.innerHTML = "There is no title";
