@@ -3,12 +3,12 @@ function changePassword(){
     let new_pass = document.getElementById("newPass").value;
     let conf_new_pass = document.getElementById("confNewPass").value;
 
-    old_pass.replace(/'/g,"\'");
-    new_pass.replace(/'/g,"\'");
-    conf_new_pass.replace(/'/g,"\'");
-    old_pass.replace(/"/g,'\"');
-    new_pass.replace(/"/g,'\"');
-    conf_new_pass.replace(/"/g,'\"');
+    old_pass = old_pass.replace(/'/g,"\\'");
+    new_pass = new_pass.replace(/'/g,"\\'");
+    conf_new_pass = conf_new_pass.replace(/'/g,"\\'");
+    old_pass = old_pass = old_pass.replace(/"/g,'\\"');
+    new_pass = new_pass.replace(/"/g,'\\"');
+    conf_new_pass = conf_new_pass.replace(/"/g,'\\"');
     
 
     let responseField = document.getElementById("response");

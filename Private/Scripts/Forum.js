@@ -89,10 +89,13 @@ function Post(){
 
     let title = document.getElementById("postTitle").value;
     let post = document.getElementById("post").value;
-    title.replace(/'/g,"\'");
-    post.replace(/'/g,"\'");
-    title.replace(/"/g,'\"');
-    post.replace(/"/g,'\"');
+    title = title.replace(/'/g,"\\'");
+    post = post.replace(/'/g,"\\'");
+    title = title.replace(/"/g,'\\"');
+    post = post.replace(/"/g,'\\"');
+
+    console.log(post);
+    console.log(title);
 
     if(title == ""){
         responseField.innerHTML = "There is no title";
