@@ -4,10 +4,10 @@ function VerifyLogin () {
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
 
-    username.replace("'","\'");
-    username.replace('"','\"');
-    password.replace("'","\'");
-    password.replace('"','\"');
+    username.replace(/'/g,"\'");
+    username.replace(/'/g,'\"');
+    password.replace(/"/g,"\'");
+    password.replace(/"/g,'\"');
 
     try{
         login_api(username, password);

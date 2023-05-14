@@ -3,12 +3,12 @@ function changePassword(){
     let new_pass = document.getElementById("newPass").value;
     let conf_new_pass = document.getElementById("confNewPass").value;
 
-    old_pass.replace("'","\'");
-    new_pass.replace("'","\'");
-    conf_new_pass.replace("'","\'");
-    old_pass.replace('"','\"');
-    new_pass.replace('"','\"');
-    conf_new_pass.replace('"','\"');
+    old_pass.replace(/'/g,"\'");
+    new_pass.replace(/'/g,"\'");
+    conf_new_pass.replace(/'/g,"\'");
+    old_pass.replace(/"/g,'\"');
+    new_pass.replace(/"/g,'\"');
+    conf_new_pass.replace(/"/g,'\"');
     
 
     let responseField = document.getElementById("response");
@@ -82,8 +82,8 @@ function Invite(){
     let endpoint = "/invite";
     let newUserName = document.getElementById("newUserName").value;
 
-    newUserName.replace("'","\'");
-    newUserName.replace('"','\"');
+    newUserName.replace(/'/g,"\'");
+    newUserName.replace(/"/g,'\"');
 
     let responseField = document.getElementById("response");
     let body = {
