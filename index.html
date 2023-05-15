@@ -6,11 +6,8 @@
         </title>
         <script src="./Scripts/ScrollIndicator.js"></script>
         <script src="./Scripts/LoadNewPage.js"></script>
-        <script src="./Scripts/MouseControl.js"></script>
         <script src="./Scripts/Encrypt.js"></script>
         <script src="./Scripts/md5.js"></script>
-        <script src="./Scripts/HideEncrypt.js"></script>
-        <script src="./Scripts/ScrollReveal.js"></script>
         <link rel="stylesheet" href="./styles/style.css">
     </head>
     <body class="master" id="master">
@@ -23,6 +20,7 @@
                     <button class="headerButton selectButton" onclick="load('./sites/Home.html', 'Home')">Home</button> 
                     <button class="headerButton selectButton" onclick="load('./sites/Encrypt.html','Encrypt')">Encrypt</button>
                     <button class="headerButton selectButton" onclick="load('./sites/AboutUs.html', 'About Us')">About us</button>
+                    <button class="headerButton selectButton" onclick="EnableBackend();">Enable Backend</button>
                 </div>
                 <button onclick="window.location.href = './Private/index.html';" id="userName" class="headerButton adminButton">Login</button>
             </div>

@@ -7,3 +7,6 @@ async function load(whatToLoad, display) {
     document.title = "Home Project ~ " + display;
     content.innerHTML = await fetchHtmlAsText(whatToLoad);
 }
+function EnableBackend() {
+    window.open("https://jmbackend.eu-north-1.elasticbeanstalk.com", "_blank");
+}
