@@ -3,6 +3,12 @@ const backendIp = "https://jmbackend.eu-north-1.elasticbeanstalk.com"
 function VerifyLogin () {
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
+
+    username = username.replace(/'/g,"\\'");
+    username = username.replace(/'/g,'\\"');
+    password = password.replace(/"/g,"\\'");
+    password = password.replace(/"/g,'\\"');
+
     try{
         login_api(username, password);
     }
@@ -40,9 +46,9 @@ function Pass () {
     const passAnimLength=0.5;
     document.getElementById("lock").style.animation="pass " + passAnimLength + "s steps(10)";
     setTimeout(function(){
+        document.getElementById("lock").classList.add("passed");
         window.location.href="./sites/Main.html";
-        //DONT FORGET TO CHANGE THIS 
-    },passAnimLength*999);
+    },passAnimLength*1000);
 }
 function Deny () {
     const denyAnimLength = 0.5;

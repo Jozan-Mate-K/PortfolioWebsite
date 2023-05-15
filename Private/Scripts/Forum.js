@@ -85,16 +85,27 @@ function ShowNextPostOfUser(user,date,title,id){
 }
 
 function Post(){
+    let responseField = document.getElementById("response");
+
     let title = document.getElementById("postTitle").value;
     let post = document.getElementById("post").value;
+    title = title.replace(/'/g,"\\'");
+    post = post.replace(/'/g,"\\'");
+    title = title.replace(/"/g,'\\"');
+    post = post.replace(/"/g,'\\"');
+
+
     if(title == ""){
-        alert("There is no title!");
+        responseField.innerHTML = "There is no title";
         return;
     }
     if(post == ""){
-        alert("There is no body!");
+        responseField.innerHTML = "There is no body";
         return;
     }
+
+
+
     let date, month, year, sendDate;
     let inputDate = new Date();
 
@@ -113,7 +124,8 @@ function Post(){
     SendPost(sendDate, title, post);
 }
 async function SendPost(sendDate, title, post){
-        
+    let responseField = document.getElementById("response");
+
     try{
         let res = await fetch(backendIp + "/post", {
             headers: {
@@ -141,7 +153,7 @@ async function SendPost(sendDate, title, post){
             document.getElementById("postTitle").value = "";
             document.getElementById("post").value = "";
         }else{
-            alert("There was something wrong");
+            responseField.innerHTML = "Server error, please try again";
         }
 
     }

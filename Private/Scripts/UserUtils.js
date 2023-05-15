@@ -2,6 +2,15 @@ function changePassword(){
     let old_pass = document.getElementById("oldPass").value;
     let new_pass = document.getElementById("newPass").value;
     let conf_new_pass = document.getElementById("confNewPass").value;
+
+    old_pass = old_pass.replace(/'/g,"\\'");
+    new_pass = new_pass.replace(/'/g,"\\'");
+    conf_new_pass = conf_new_pass.replace(/'/g,"\\'");
+    old_pass = old_pass = old_pass.replace(/"/g,'\\"');
+    new_pass = new_pass.replace(/"/g,'\\"');
+    conf_new_pass = conf_new_pass.replace(/"/g,'\\"');
+    
+
     let responseField = document.getElementById("response");
     let endpoint = "/changePassword";
     let body = {
@@ -72,6 +81,11 @@ async function SendChangePass(endpoint, _body, _method){
 function Invite(){
     let endpoint = "/invite";
     let newUserName = document.getElementById("newUserName").value;
+
+    newUserName.replace(/'/g,"\'");
+    newUserName.replace(/"/g,'\"');
+
+    let responseField = document.getElementById("response");
     let body = {
         'name' : newUserName,
         'username': localStorage.getItem('name'),
@@ -79,17 +93,18 @@ function Invite(){
     };
     method = 'POST';
     if(newUserName.length == 0){
-        alert("Please enter a name")
+        responseField.innerHTML = "Please enter a name";
         return;
     }
     if(newUserName.length < 4){
-        alert("Username too short")
+        responseField.innerHTML = "Username is too short";
         return;
     }
     if(newUserName.length > 16){
-        alert("Username too long")
+        responseField.innerHTML = "Username is too long";
         return;
     }
+    responseField.innerHTML = "User successfully created!";
     document.getElementById("newUserName").value = "";
     call_api(endpoint, body, method);
 }

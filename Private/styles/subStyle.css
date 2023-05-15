@@ -176,10 +176,13 @@ input[type = text], input[type = password]{
     align-items: stretch;
 }
 #postPanel #postTextContainer :nth-child(1){
-    flex-grow: 0;
+    flex-grow: 2;
 }
 #postPanel #postTextContainer :nth-child(2){
     flex-grow: 1;
+}
+#postPanel #postTextContainer :nth-child(3){
+    flex-grow: 5;
 }
 #postPanel textarea{
     width: auto;
