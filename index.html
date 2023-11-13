@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+    <canvas id="bubble"></canvas>
+
     <head>
         <title>
             Pradctice
@@ -8,8 +10,12 @@
         <script src="./Scripts/LoadNewPage.js"></script>
         <script src="./Scripts/Encrypt.js"></script>
         <script src="./Scripts/md5.js"></script>
+        <script src="./Scripts/bubbles.js"></script>
+        <script src="./Scripts/EmailPanel.js"></script>
         <link rel="stylesheet" href="./styles/style.css">
     </head>
+
+
     <body class="master" id="master">
 
         <div class="header" id="header">
@@ -22,14 +28,27 @@
                     <button class="headerButton selectButton" onclick="load('./sites/MyMusic.html', 'My Music')">My Music</button>
                     <!-- <button class="headerButton selectButton" onclick="EnableBackend();">Enable Backend</button> -->
                 </div>
-                <button onclick="window.location.href = './Private/index.html';" id="userName" class="headerButton adminButton">Login</button>
+                <!-- <button onclick="window.location.href = './Private/index.html';" id="userName" class="headerButton adminButton">Login</button> -->
             </div>
             <div class="underline" id="underline"></div>
         </div>
         <div id="contentContainer" onscroll="Scrolled(); Reveal()"></div>
+        <div id="emailcontainer">
+            <form action="https://formsubmit.co/jozan.mate17@gmail.com" id="emailform" method="POST">
+                <input type="text" name="name" required>
+                <input type="email" name="email" placeholder="Email Address">
+                <input type="email" name="email" required>
+                <button type="submit">Send</button>
+           </form> 
+            <div onclick="Toggle()" id="emailbutton">
+
+            </div>
+        </div>
 
     </body>
+
     <script>
         load('./sites/Portfolio.html', 'Portfolio');
     </script>
+
 </html>
