@@ -6,15 +6,17 @@ h1{
 }
 h2{
     color: white;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 30px;
     letter-spacing: 3px;
 }
 section{
     height: 80vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 p{
     color: white;
@@ -41,7 +43,10 @@ input[type = text], input[type = password]{
     border-radius: 5px ;
 
 } 
-
+iframe{
+    border-radius: 10px;
+    box-shadow: 0 0 3px white;
+}
 #subMain{
     margin: 5%;
     display: flex;
@@ -57,6 +62,9 @@ input[type = text], input[type = password]{
     align-self: flex-start;
     margin-left: 10%;
 }
+#revealContainer{
+    align-self: stretch;
+}
 #revealContainer .reveal p{
     flex-shrink:  5;
     flex-grow: 0;
@@ -66,11 +74,11 @@ input[type = text], input[type = password]{
     transition: all 0.5s ease-out;
     margin-bottom: 10%;
     display: flex;
-    justify-content: flex-start;
     align-items: center;
 }
 #revealContainer .reveal:nth-child(even){
     transform: translateX(200px);
+    justify-content: flex-end;
 }
 #revealContainer .reveal:nth-child(even) p{
     border-right-width: 10px;
@@ -82,6 +90,7 @@ input[type = text], input[type = password]{
 }
 #revealContainer .reveal:nth-child(odd){
     transform: translateX(-200px);
+    justify-content: flex-start;
 }
 #revealContainer .reveal:nth-child(odd) p{
     border-left-width: 10px;
