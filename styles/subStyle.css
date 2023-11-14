@@ -33,7 +33,7 @@ textarea{
     overflow: visible;
     align-self: stretch;
 }
-input[type = text], input[type = password], input[type = email]{
+input[type = text], input[type = password], input[type = email], textarea{
     color: white;
     background-color:#300030;
     padding: 0.5em;
