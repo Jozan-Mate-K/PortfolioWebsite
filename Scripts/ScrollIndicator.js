@@ -3,6 +3,8 @@ function Scrolled (){
     var c = element.scrollTop / (element.scrollHeight - element.clientHeight);
     var d = c * window.innerWidth;
     document.documentElement.style.setProperty('--scroll', -d  + 'px');
+    document.documentElement.style.setProperty('--x', -d  + 'px');
+
 }
 function Reveal (){
     var reveals = document.querySelectorAll('.reveal');
@@ -24,9 +26,9 @@ function Reveal (){
         }
     }
 }
-onmousemove = function(e){
-    document.documentElement.style.setProperty('--x', -e.clientX  + 'px');
-    var a = e.clientX / this.window.innerWidth;
-    var xPercent = (2 * a)-1;
-    document.documentElement.style.setProperty('--xPercent', xPercent);
-}
+// onmousemove = function(e){
+//     document.documentElement.style.setProperty('--x', -e.clientX  + 'px');
+//     var a = e.clientX / this.window.innerWidth;
+//     var xPercent = (2 * a)-1;
+//     document.documentElement.style.setProperty('--xPercent', xPercent);
+// }

@@ -13,6 +13,7 @@
         <script src="./Scripts/bubbles.js"></script>
         <script src="./Scripts/EmailPanel.js"></script>
         <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/subStyle.css">
     </head>
 
 
@@ -25,7 +26,8 @@
 
                     <button class="headerButton selectButton" onclick="load('./sites/Portfolio.html', 'Portfolio')">Portfolio</button> 
                     <!-- <button class="headerButton selectButton" onclick="load('./sites/Encrypt.html','Encrypt')">Encrypt</button> -->
-                    <button class="headerButton selectButton" onclick="load('./sites/MyMusic.html', 'My Music')">My Music</button>
+                    <button class="headerButton selectButton" onclick="load('./sites/MyMusic.html', 'Music')">My Music</button>
+                    <button class="headerButton selectButton" onclick="load('./sites/ContactMe.html', 'Contact')">Contact Me</button> 
                     <!-- <button class="headerButton selectButton" onclick="EnableBackend();">Enable Backend</button> -->
                 </div>
                 <!-- <button onclick="window.location.href = './Private/index.html';" id="userName" class="headerButton adminButton">Login</button> -->
@@ -35,13 +37,14 @@
         <div id="contentContainer" onscroll="Scrolled(); Reveal()"></div>
         <div id="emailcontainer">
             <form action="https://formsubmit.co/jozan.mate17@gmail.com" id="emailform" method="POST">
-                <input type="text" name="name" required>
-                <input type="email" name="email" placeholder="Email Address">
-                <input type="email" name="email" required>
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Email Address" required>
+
+                <textarea name="body" id="emailbody" placeholder="Please, tell me what you need!" required></textarea>
                 <button type="submit">Send</button>
            </form> 
             <div onclick="Toggle()" id="emailbutton">
-
+                <div id="emailicon"></div>
             </div>
         </div>
 

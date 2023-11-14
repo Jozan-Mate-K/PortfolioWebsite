@@ -89,7 +89,7 @@
     background: linear-gradient(90deg, transparent 70%, white);
     background-size: 200% 100%;
     background-position-x: var(--x);
-    transition: background-position-x 0.1s ease-out;
+    transition: background-position-x 0.5s ease-out;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -178,6 +178,7 @@ canvas {
 }
 #emailcontainer{
     position: absolute;
+    color: white;
     bottom: 20px;
     right: 20px;
     display: flex;
@@ -185,10 +186,23 @@ canvas {
     justify-content: space-between;
     align-items: flex-end;
     width: fit-content;
-    background-color: white;
-
+    gap: 30px;
 }
-#emailbutton{
+#emailcontainer #emailbutton{
+    padding: 20px;
+    cursor: pointer;
+    border-color: white;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 100%;
+
+    box-shadow: inset 0 0 0;
+    transition: box-shadow 0.3s linear;
+}
+#emailcontainer #emailbutton:hover{
+    box-shadow: inset 0 0 15px white;
+}
+#emailcontainer #emailbutton #emailicon{
     background-image: url("../assets/email_561127.png");
     background-size: contain;
     width: 50px;
@@ -198,10 +212,28 @@ canvas {
     width: 0;
     height: 50wh;
     transform: scaleY(0);
+    transform-origin: bottom center;
+    transition: transform 0.5s ease-in-out;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 30px;
+}
+#emailcontainer form input,
+#emailcontainer form textarea{
+    font-size: large;
+}
+#emailcontainer form :nth-child(1), 
+#emailcontainer form :nth-child(2){
+    flex-grow: 1;
+}
+#emailcontainer form :nth-child(3){
+    flex-grow: 4;
+}
+#emailcontainer form textarea{
+    width: auto;
 }
 #emailcontainer form.active{
     width: 50vw;
