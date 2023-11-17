@@ -4,9 +4,11 @@ async function fetchHtmlAsText(url) {
 async function load(whatToLoad, display) {
     const content = document.getElementById("contentContainer");
     content.scrollTo(0, 0);
-    document.title = "Home Project ~ " + display;
+    document.title = "Máté K. Józan ~ " + display;
     content.innerHTML = await fetchHtmlAsText(whatToLoad);
-}
-function EnableBackend() {
-    window.open("https://jmbackend.eu-north-1.elasticbeanstalk.com", "_blank");
+    if(display == "Contact"){
+        Hide();
+    }else{
+        Show();
+    }
 }

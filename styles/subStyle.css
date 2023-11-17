@@ -19,6 +19,7 @@ h3{
 }
 section{
     height: 80vh;
+    width: 80vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -32,6 +33,7 @@ p{
 }
 h1, h2, h3, p{
     cursor: default;
+
     -webkit-touch-callout: none; 
     -webkit-user-select: none; 
     -khtml-user-select: none; 
@@ -39,7 +41,7 @@ h1, h2, h3, p{
     -ms-user-select: none; 
     user-select: none; 
 }
-textarea{
+/* textarea{
     resize: none;
     width: 30%;
     background-color: #300030;
@@ -48,7 +50,7 @@ textarea{
     font-size: 15px;
     overflow: visible;
     align-self: stretch;
-}
+} */
 input[type = text], input[type = password], input[type = email], textarea{
     color: white;
     background-color:#300030;
@@ -74,7 +76,7 @@ iframe{
 #revealContainer{
     align-self: stretch;
 }
-#revealContainer .reveal p{
+#revealContainer .reveal .description{
     flex-shrink:  5;
     flex-grow: 0;
 }
@@ -89,7 +91,7 @@ iframe{
     transform: translateX(200px);
     justify-content: flex-end;
 }
-#revealContainer .reveal:nth-child(even) p{
+#revealContainer .reveal:nth-child(even) .description{
     border-right-width: 10px;
     border-right-color: white;
     border-right-style: solid;
@@ -101,7 +103,7 @@ iframe{
     transform: translateX(-200px);
     justify-content: flex-start;
 }
-#revealContainer .reveal:nth-child(odd) p{
+#revealContainer .reveal:nth-child(odd) .description{
     border-left-width: 10px;
     border-left-color: white;
     border-left-style: solid;
@@ -126,7 +128,10 @@ iframe{
 #revealContainer .reveal.forumButton:hover{
     transform: scale(105%);
 }
+
+/* Reference window (Portfolio) */
 #revealContainer .reveal .reference{
+    cursor: pointer;
     height: 300px;
     width: 300px;
     margin: 20px;
@@ -134,12 +139,17 @@ iframe{
 #revealContainer .reveal .reference .referenceImage{
     height: 300px;
     width: 300px;
+
     background-size: cover;
     overflow: visible;
     position: absolute;
 
-    transition: transform 0.3s ease-in-out;
     border-radius: 20px;
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+
+    transition: transform 0.3s ease-in-out;
 }
 #revealContainer .reveal:nth-child(even) .reference .referenceImage{
     top: 0;
@@ -162,33 +172,60 @@ iframe{
     transform: translateX(40px) translateY(-40px) rotateZ(20deg);
 }
 
-.keyContainer{
-    width: 30%;
+/* Contact styling */
+#contactContainer{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    gap: 40px
+}
+#contactContainer .contact{
+    width: 300px;
+    height: 300px;
+    
+    border-width: 6px;
+    border-style: solid;
+    border-radius: 20px;
+    border-color: white;
+    
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-content: stretch;
-    height: 100%;
+    align-items: center;
 }
-.keyContainer textarea{
-    width: 98%;
+#contactContainer .contact .icon{
+    width: 100px;
+    height: 100px;
+    background-size: contain;
 }
-.keyContainer :nth-child(1){
-    flex-grow: 3;
+#contactContainer .contact #emailIcon{
+    background-image: url("../assets/email_561127.png");
 }
-.keyContainer :not(:first-child){
-    flex-grow: 1;
+#contactContainer .contact #phoneIcon{
+    background-image: url("../assets/phone.png");
 }
-.widget{
+#contactForm{
+    width: 100%;
+    height: 50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+#contactForm #contactBody{
+    grid-row: span 2;
+}
+
+
+/* TODO */
+.loadSpinner{
     background-image: url("../assets/circle.png");
     background-size: cover;
     height: var(--lockSize);
     width: var(--lockSize);
     flex-grow: 5;
     flex-shrink: 0;
-    animation: widgetAnim 3s linear infinite ;
+    animation: loadAnim 3s linear infinite ;
 }
-@keyframes widgetAnim {
+@keyframes loadAnim {
     0%{
         transform: rotateZ(0deg);
     }25%{
@@ -201,29 +238,3 @@ iframe{
         transform: rotateZ(360deg);
     }
 }
-
-
-.invform{
-    display: flex;
-    flex-direction: row;
-}
-#contactContainer{
-    display: flex;
-    flex-direction: row;
-    justify-items: center;
-    gap: 40px
-}
-#contactContainer .contact{
-    width: 300px;
-    height: 300px;
-
-    border-width: 6px;
-    border-style: solid;
-    border-radius: 20px;
-    border-color: white;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
