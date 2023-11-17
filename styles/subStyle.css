@@ -1,3 +1,4 @@
+/* Basic styling */
 h1{
     color: white;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -8,6 +9,12 @@ h2{
     color: white;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 30px;
+    letter-spacing: 3px;
+}
+h3{
+    color: white;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 25px;
     letter-spacing: 3px;
 }
 section{
@@ -22,6 +29,15 @@ p{
     color: white;
     font-size: 25px;
     line-height: 120%;
+}
+h1, h2, h3, p{
+    cursor: default;
+    -webkit-touch-callout: none; 
+    -webkit-user-select: none; 
+    -khtml-user-select: none; 
+    -moz-user-select: none; 
+    -ms-user-select: none; 
+    user-select: none; 
 }
 textarea{
     resize: none;
@@ -54,14 +70,7 @@ iframe{
     align-items: center;
     justify-content: center;
 }
-#passwordReset{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: stretch;
-    align-self: flex-start;
-    margin-left: 10%;
-}
+/* RevealContainer styling */
 #revealContainer{
     align-self: stretch;
 }
@@ -117,13 +126,40 @@ iframe{
 #revealContainer .reveal.forumButton:hover{
     transform: scale(105%);
 }
-.commentContainer{
-    width: 100%;
-    height: 0;
-    background-color: green;
+#revealContainer .reveal .reference{
+    height: 300px;
+    width: 300px;
+    margin: 20px;
 }
-.commentContainer.show{
-    height: 500px;
+#revealContainer .reveal .reference .referenceImage{
+    height: 300px;
+    width: 300px;
+    background-size: cover;
+    overflow: visible;
+    position: absolute;
+
+    transition: transform 0.3s ease-in-out;
+    border-radius: 20px;
+}
+#revealContainer .reveal:nth-child(even) .reference .referenceImage{
+    top: 0;
+    right:0;
+}
+#revealContainer .reveal:nth-child(odd) .reference .referenceImage{
+    top: 0;
+    left:0;
+}
+#revealContainer .reveal:nth-child(even) .reference:hover :nth-child(2){
+    transform: translateX(-20px) translateY(-20px) rotateZ(-10deg);
+}
+#revealContainer .reveal:nth-child(even) .reference:hover :nth-child(1){
+    transform: translateX(-40px) translateY(-40px) rotateZ(-20deg);
+}
+#revealContainer .reveal:nth-child(odd) .reference:hover :nth-child(2){
+    transform: translateX(20px) translateY(-20px) rotateZ(10deg);
+}
+#revealContainer .reveal:nth-child(odd) .reference:hover :nth-child(1){
+    transform: translateX(40px) translateY(-40px) rotateZ(20deg);
 }
 
 .keyContainer{
@@ -165,60 +201,29 @@ iframe{
         transform: rotateZ(360deg);
     }
 }
-#encryptBoxContainer{
-    overflow: hidden;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-}
 
-.encryptContainer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    margin: 0;
-    padding: auto;
-    overflow: hidden;
-    height: 0vh;
-    width: 0%;
-    transition: all 0.2s ease-out;
-}
-.appear{
-    height: 50vh;
-    width: auto;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-top: 2%;
-    margin-bottom: 2%;
-}
-.encryptType{
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.encryptType:hover{
-    font-size: 35px;
-    text-shadow: 0 0 2px white;
-    letter-spacing: 10px;
-}
-
-.encryptButton{
-    background-color: #300030;
-    padding: 5px;
-    border-radius: 15px;
-    border: solid 1px white;
-    box-shadow: 0 0 5px gray;
-    transition: 0.2s ease-out background-color;
-}
-.encryptButton:hover{
-    background-color: #003030;
-}
-.encryptButton:active{
-    background-color: white;
-}
 
 .invform{
     display: flex;
     flex-direction: row;
 }
+#contactContainer{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    gap: 40px
+}
+#contactContainer .contact{
+    width: 300px;
+    height: 300px;
+
+    border-width: 6px;
+    border-style: solid;
+    border-radius: 20px;
+    border-color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
