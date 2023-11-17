@@ -4,6 +4,20 @@
     --scroll: 0px;
     --lockSize: 64px;
 }
+
+/* Background styling */
+body{
+    margin: 0;
+    padding: 0;
+}
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+}
 .master{
     height: 100svh;
     display: flex;
@@ -16,11 +30,6 @@
     background-repeat: no-repeat;
     animation: moveBG 50s ease infinite;
 }
-.loginMaster{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 @keyframes moveBG {
     0%{background-position: 0% 0%;}
     25%{background-position: 0% 100%;}
@@ -28,90 +37,33 @@
     75%{background-position: 100% 100%;}
     100%{background-position: 0% 0%;}
 }
-.loginPanel{
-    animation: 1s ease-out 0s 1 loginSlideIn;
-    background-color: #300030;
-    padding: 20px;
-    border: 5px solid white; 
-    border-radius: 20px;
-    box-shadow: 0px 0px 10px gray;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-@keyframes loginSlideIn{
-    0% {
-        transform: translateX(-50%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-#lockContainer{
-    overflow: hidden;
-    width: var(--lockSize);
-    height: var(--lockSize);
-    margin-bottom: 10px;
-}
-.animateDeny{
-    animation: deny 0.5s ease-in-out;
-}
-@keyframes deny {
-    0%{transform: translate(0%, 0%) rotate(0deg);}
-    25%{transform: translate(10%, 0%) rotate(10deg);}
-    50%{transform: translate(-10%, 0%) rotate(-10deg);}
-    75%{transform: translate(10%, 0%) rotate(10deg);}
-    100%{transform: translate(0%, 0%) rotate(0deg);}
-}
-.lock{
-    /*animation: pass 0.5s steps(10);*/
-    width: calc(10* var(--lockSize));
-    height: var(--lockSize);
-}
-@keyframes pass {
-    0% { transform: translate(0%, 0);}
-    100% {transform: translate(-100%, 0);}
-}
-.key{
-    /*animation: pass 0.5s steps(10);*/
-    width: var(--lockSize);
-    height: var(--lockSize);
-}
-.header{
+
+/* Header styling */
+#header{
     align-self: stretch;
     display: flex;
     flex-direction: column;
 }
-.selector{
+#header .buttonContainer{
     background: linear-gradient(90deg, transparent 70%, white);
     background-size: 200% 100%;
     background-position-x: var(--x);
     transition: background-position-x 0.5s ease-out;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: nowrap;
-    height: 50px;
-}
-.buttonContainer{
-    display: flex;
-    flex-direction: row;
     justify-content: flex-start;
     align-items: stretch;
     flex-grow: 1;
+    height: 50px;
 }
-.underline{
+#header .underline{
     height: 5px;
     background: linear-gradient(90deg,  white 49%, transparent 51%);
     background-size: 200% 100%;
     background-position-x: var(--scroll);
     transition: background-position-x 0.5s ease-out;
 }
-.headerButton{
+#header .buttonContainer .headerButton{
     border: 0px;
     height: 50px;
     padding-right: 1%;
@@ -119,41 +71,24 @@
     margin: 0;
     font-size: 25px;
     cursor: pointer;
-}
-.adminButton{
-    color: rgba(0, 0, 0, var(--xPercent));
-    background: 0;
-    transition: all 0.5s;
-    border-radius: 20px;
-    font-size: 20px;
-    margin-left: 1%;
-    margin-right: 1%;
-    padding: 1;
-}
-.adminButton:hover{
-    color: white;
-    background-color: black;
-}
-.selectButton{
     background: linear-gradient(transparent, white);
     background-position-y: 50px;
     background-repeat: no-repeat;
     color: white;
     transition: background-position-y 0.5s, color 0.5s, font-size 0.5s;
 }
-.selectButton:hover{
+#header .buttonContainer .headerButton:hover{
     font-size: 30px;
     background-position-y: 0;
     color: #202020;
 }
-.selectButton:active{
+#header .buttonContainer .headerButton:active{
     background-position-y: 50px;
     color: white;
 }
-body{
-    margin: 0;
-    padding: 0;
-}
+
+
+/* Content container styling */
 #contentContainer{
     width: 100%;
     height: 100svh;
@@ -169,14 +104,8 @@ body{
     -ms-overflow-style: none;
     scrollbar-width: none; 
 }
-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-}
+
+/* Email panel styling */
 #emailContainer{
     position: absolute;
     color: white;

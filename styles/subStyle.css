@@ -108,7 +108,7 @@ iframe{
 #revealContainer .reveal.active{
     transform: translateX(0px);
 }
-#revealContainer .reveal .description{
+#revealContainer .reveal.description{
     font-style: italic;
     font-size: 15px;
 }
