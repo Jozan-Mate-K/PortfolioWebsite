@@ -18,5 +18,5 @@ function Show(){
 }
 //TODO: Fix this
 function ScrollToBottom(){
-    document.getElementById("subMain").scrollTo(0,document.getElementById("subMain").scrollHeight)
+    document.getElementById("emailSection").scrollIntoView({behavior: "smooth"});
 }

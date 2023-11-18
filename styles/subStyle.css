@@ -49,7 +49,7 @@ input[type = text], input[type = password], input[type = email], textarea{
     box-shadow: 0 0 5px white;
     border: 0;
     border-radius: 5px ;
-
+    resize: none;
 } 
 iframe{
     border-radius: 10px;
@@ -215,27 +215,37 @@ iframe{
     height: fit-content;
     align-self: top;
 }
+#emailSection .button{
+    justify-self: right;
+
+    width: fit-content;
+    height: fit-content;
+    padding: 20px;
+    cursor: pointer;
+    border-color: white;
+    border-width: 6px;
+    border-style: solid;
+    border-radius: 100%;
+
+    box-shadow: inset 0 0 0;
+    transition: box-shadow 0.3s linear;
+}
+#emailSection .button:hover{
+    box-shadow: inset 0 0 15px white;
+}
+#emailSection .icon{
+    width: 50px;
+    height: 50px;
+}
 #emailSection #contactForm button{
     background-color: transparent;
-    border: 0;
 }
 #emailSection #contactForm #sendIcon{
     background-image: url("../assets/SendPostIcon.png");
     background-size: contain;
 
-    width: 90px;
-    height: 90px;
-
-    justify-self: right;
-
-
-    border-radius: 100%;
-    box-shadow: inset 0 0 0;
-    transition: box-shadow 0.3s ease-out;
 }
-#emailSection #contactForm #sendIcon:hover{
-    box-shadow: inset 0 0 20px white;
-}
+
 
 /* TODO */
 .loadSpinner{
