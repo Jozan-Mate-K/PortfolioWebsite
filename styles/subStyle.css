@@ -17,6 +17,10 @@ h3{
     font-size: 25px;
     letter-spacing: 3px;
 }
+a{
+    text-decoration:none;
+    cursor: pointer !important;
+}
 section{
     height: 80vh;
     width: 80vw;
@@ -32,7 +36,7 @@ p{
     line-height: 120%;
 }
 h1, h2, h3, p{
-    cursor: default;
+    /* cursor: default; */
 
     -webkit-touch-callout: none; 
     -webkit-user-select: none; 
@@ -43,7 +47,7 @@ h1, h2, h3, p{
 }
 input[type = text], input[type = password], input[type = email], textarea{
     color: white;
-    background-color:#300030;
+    background-color:#4b004b;
     padding: 0.5em;
     margin: 0.5em;
     box-shadow: 0 0 5px white;
@@ -164,6 +168,7 @@ iframe{
     gap: 40px
 }
 #contactContainer .contact{
+    cursor: pointer;
     width: 300px;
     height: 300px;
     
@@ -176,6 +181,23 @@ iframe{
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+
+    background: linear-gradient( #4b004b 50%, transparent 50%);
+    background-size: 100% 200%;
+    background-position: bottom;
+
+    box-shadow: inset 0 0 0 white;
+
+    transition: background-position 0.5s ease-out, box-shadow 0.5s ease-in, border-color 0.5s linear;
+}
+#contactContainer .contact h2{
+    cursor: pointer;
+}
+#contactContainer .contact:hover{
+    box-shadow: inset 0 15px 10px rgba(255, 255, 255, 0.534);
+    border-color: rgba(255, 255, 255, 0.534);
+    background-position: top;
+
 }
 #contactContainer .contact .icon{
     width: 100px;
@@ -193,9 +215,6 @@ iframe{
 }
 
 /* Direct email styling */
-#emailSection{
-
-}
 #emailSection #textBox{
     display: flex;
     flex-direction: column;
@@ -244,6 +263,21 @@ iframe{
     background-image: url("../assets/SendPostIcon.png");
     background-size: contain;
 
+}
+#emailSection #contactForm a{
+    height: auto;
+}
+#emailSection #contactForm #externalEmail{
+    font-style: italic;
+    font-weight: normal;
+    padding: 4px;
+    border:rgba(255, 255, 255, 0.521) solid 0px;
+    transition: all 0.2s ease-in-out;
+}
+#emailSection #contactForm #externalEmail:hover{
+    border-width: 1px;
+    border-radius: 20px;
+    box-shadow: -10px 7px 10px white ;
 }
 
 
