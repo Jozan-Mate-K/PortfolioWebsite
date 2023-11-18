@@ -16,3 +16,7 @@ function Show(){
     let container = document.getElementById("emailContainer");
     container.classList.remove("hidden");
 }
+//TODO: Fix this
+function ScrollToBottom(){
+    document.getElementById("subMain").scrollTo(0,document.getElementById("subMain").scrollHeight)
+}
