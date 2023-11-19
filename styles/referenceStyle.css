@@ -1,3 +1,28 @@
 body{
     color: white;
 }
+#subMain{
+    padding: 0;
+    margin: 0;
+    min-height: 100%;
+}
+#titleSection{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: calc(100svh - 50px);
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+#titleSection #detailsGrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+#detailsSection{
+    background-color: white;
+    width: 100%;
+    height: fit-content;
+}
