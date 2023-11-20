@@ -45,16 +45,6 @@ h1, h2, h3, p{
     -ms-user-select: none; 
     user-select: none; 
 }
-input[type = text], input[type = password], input[type = email], textarea{
-    color: white;
-    background-color:#4b004b;
-    padding: 0.5em;
-    margin: 0.5em;
-    box-shadow: 0 0 5px white;
-    border: 0;
-    border-radius: 5px ;
-    resize: none;
-} 
 iframe{
     border-radius: 10px;
     box-shadow: 0 0 3px white;

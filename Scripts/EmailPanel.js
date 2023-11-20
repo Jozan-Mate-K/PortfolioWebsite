@@ -16,7 +16,6 @@ function Show(){
     let container = document.getElementById("emailContainer");
     container.classList.remove("hidden");
 }
-//TODO: Fix this
 function ScrollToBottom(){
     document.getElementById("emailSection").scrollIntoView({behavior: "smooth"});
 }
