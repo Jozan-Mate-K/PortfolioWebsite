@@ -74,6 +74,7 @@ body{
     border-top-left-radius: calc(10% * var(--currentDisplacement));
 
     padding-bottom: 20%;
+    padding-left: 5%;
 
     transition: border-radius 2s ease-in-out;
 
